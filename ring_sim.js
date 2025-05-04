@@ -1,10 +1,10 @@
-//S.Tran, code for einstein ring simulation: some values adjustable
+// S.Tran, code for Einstein ring simulation: some values adjustable
 
 const canvas = document.getElementById("simCanvas");
 const ctx = canvas.getContext("2d");
 
-const N = 1000; 
-const M = 1000; 
+const N = 1000;
+const M = 1000;
 const fov = 200;
 
 let slider1 = document.getElementById("slider1");
@@ -40,17 +40,23 @@ function updateSimulation(varA, varB, varC) {
   console.log("Sigma:", varA, "Amp:", varB, "Theta_E", varC);
 }
 
-
-
-
 let x_start, y_start, x_end, y_end;
 let t = 0;
 const steps = 300;
 
-let mode = "fade-in"; 
+let mode = "fade-in";
 let fadeFrames = 0;
 const maxFadeFrames = 60;
 const framerate = 20;
+
+let paused = false;
+
+const playPauseBtn = document.getElementById("playPauseBtn");
+playPauseBtn.addEventListener("click", () => {
+  paused = !paused;
+  const icon = playPauseBtn.querySelector("i");
+  icon.className = paused ? "fas fa-play" : "fas fa-pause";
+});
 
 const x_vals = new Array(N);
 const y_vals = new Array(M);
@@ -65,7 +71,11 @@ let imageData = ctx.createImageData(N, M);
 let pixels = imageData.data;
 
 function computeFrame() {
- 
+  if (paused) {
+    setTimeout(computeFrame, framerate);
+    return;
+  }
+
   ctx.fillStyle = "black";
   ctx.fillRect(
     Math.floor(canvas.width / 2 - N / 2),
@@ -73,7 +83,7 @@ function computeFrame() {
     N,
     M
   );
-  
+
   if (mode !== "fade") {
     for (let i = 0; i < pixels.length; i++) {
       pixels[i] = 0;
@@ -133,7 +143,6 @@ function computeFrame() {
       Math.floor(canvas.width / 2 - N / 2),
       Math.floor(canvas.height / 2 - M / 2)
     );
-    
   }
 
   if (mode === "fade-in") {
@@ -186,7 +195,7 @@ function setNewPath() {
   t = 0;
   fadeFrames = 0;
   mode = "fade-in";
-  
+
   sigma = parseFloat(slider1.value) / 10;
   amp = parseFloat(slider2.value) / 10;
   theta_E = parseFloat(slider3.value);

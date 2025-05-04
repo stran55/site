@@ -4,12 +4,57 @@
   <meta charset="UTF-8">
   <title>Simulation</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    #controls {
+      text-align: center;
+      margin-top: 20px;
+    }
 
+    .icon-button {
+      background-color: #fa8d00;
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 10px 14px;
+      margin-left: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .icon-button:hover {
+      background-color: #fa8d00;
+    }
+  </style>
+  <style>
+    body {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background-color: black; /* or your current background */
+    }
+    body.fade-in {
+      opacity: 1;
+    }
+  </style>
+  <style>
+    #pauseButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+    </style>
+    
 </head>
 <body>
     <div style="position: relative; display: inline-block;">
 
     <canvas id="simCanvas" width="1000" height="1000" style="background-color: black;"></canvas>
+    <button id="playPauseBtn" class="icon-button" style="position: absolute; bottom: 40px; left: 30px;">
+        <i class="fas fa-play"></i>
+      </button>
+
     <h1 style="
             position: absolute;
             top: 20px;
@@ -35,10 +80,7 @@
         color: white;
     ">
 
-        <label for="slider1" style="font-family: 'Orbitron', sans-serif;" >Sigma: <span id="value1">10
-
-            </span>
-        </label>
+        <label for="slider1" style="font-family: 'Orbitron', sans-serif;" >Sigma: <span id="value1">10</span></label>
         <input type="range" id="slider1" class="cool-slider" min="1" max="100" value="10"><br>
 
         <label for="slider2" style="font-family: 'Orbitron', sans-serif;">Amplitude: <span id="value2">10</span></label>
@@ -46,10 +88,16 @@
 
         <label for="slider3" style="font-family: 'Orbitron', sans-serif;">Radius: <span id="value3">10</span></label>
         <input type="range" id="slider3" class="cool-slider" min="1" max="100" value="10"><br>
-        </div>
+        
     </div>
     <script src="ring_sim.js"></script>
 
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          document.body.classList.add('fade-in');
+        });
+      </script>
+      
 </body>
 <style>
     body {
