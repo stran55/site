@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div style="position: relative; display: inline-block;">
+
+    <canvas id="simCanvas" width="1000" height="1000" style="background-color: black;"></canvas>
+    <h1 style="
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            margin: 0;
+            font-size: 30px;
+            text-shadow: 0 0 1px #f44703;
+        ">
+            Simulation: Gravitational Lensing of Black Hole
+        </h1>
+    <div style="
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 10px 15px;
+        border-radius: 10px;
+        text-align: right;
+        font-family: 'Orbitron', sans-serif;
+        color: white;
+    ">
+
+        <label for="slider1" style="font-family: 'Orbitron', sans-serif;" >Sigma: <span id="value1">10
+
+            </span>
+        </label>
+        <input type="range" id="slider1" class="cool-slider" min="1" max="100" value="10"><br>
+
+        <label for="slider2" style="font-family: 'Orbitron', sans-serif;">Amplitude: <span id="value2">10</span></label>
+        <input type="range" id="slider2" class="cool-slider" min="1" max="100" value="10"><br>
+
+        <label for="slider3" style="font-family: 'Orbitron', sans-serif;">Radius: <span id="value3">10</span></label>
+        <input type="range" id="slider3" class="cool-slider" min="1" max="100" value="10"><br>
+        </div>
+    </div>
+    <script src="ring_sim.js"></script>
+
+</body>
+<style>
+    body {
+      background-color: black;
+      color: white; 
+    }
+    #simCanvas {
+    display: block;
+    margin: 0 auto;                /* Center horizontally */
+    border: 2px solid white;       /* Add a white border */
+    background-color: black;       /* Optional: canvas background */
+    }
+
+    body {
+        background-color: black;
+        color: white;
+        text-align: center;            /* Center slider labels/text */
+    }
+
+
+    .cool-slider {
+        -webkit-appearance: none;
+        width: 300px;
+        height: 10px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #fff1ac, #f44703);
+        outline: none;
+        box-shadow: 0 0 10px #0575e6;
+        transition: background 0.3s ease-in-out;
+        }
+
+        .cool-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff1ac;
+        transition: background 0.3s ease-in-out;
+        }
+
+        .cool-slider::-moz-range-thumb {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff1ac;
+        }
+
+  </style>
+</html>
