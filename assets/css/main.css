@@ -29,6 +29,8 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
+
+	
 body {
 	line-height: 1;
 }
@@ -114,15 +116,20 @@ input, select, textarea {
 			height: 100vh;
 			overflow: auto;
 		}
-
+	html, body {
+			overflow-x: hidden;
+		  }
 	body, input, select, textarea {
-		color: #6f7577;
+		color: #dddddd;
 		font-family: "Raleway", "Helvetica", sans-serif;
 		font-size: 15pt;
 		font-weight: 400;
 		line-height: 1.75em;
 	}
 
+
+
+	  
 	a {
 		-moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		-webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
@@ -135,14 +142,15 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent !important;
-			color: #8cd1a8 !important;
+			color: #ffaa48 !important;
 			text-decoration: none;
 		}
 
 	strong, b {
-		color: #61686b;
+		color: #dddddd;
 		font-weight: 700;
 	}
+
 
 	em, i {
 		font-style: italic;
@@ -153,7 +161,7 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #61686b;
+		color: #dddddd;
 		font-weight: 800;
 		letter-spacing: 0.075em;
 		line-height: 1em;
@@ -205,7 +213,7 @@ input, select, textarea {
 
 	hr {
 		border: 0;
-		border-bottom: solid 1px #dddddd;
+		border-bottom: solid 1px #000000;
 		margin: 2em 0;
 	}
 
@@ -1884,7 +1892,7 @@ input, select, textarea {
 			-webkit-animation: overlay-hide 1s ease-in forwards !important;
 			-ms-animation: overlay-hide 1s ease-in forwards !important;
 			animation: overlay-hide 1s ease-in forwards !important;
-			background: #313a3d;
+			background: #000000;
 			content: '';
 			display: block;
 			height: 100%;
@@ -1901,7 +1909,7 @@ input, select, textarea {
 		-webkit-animation: spinner-show 1.5s 1 0.25s ease forwards, spinner-rotate 0.75s infinite linear !important;
 		-ms-animation: spinner-show 1.5s 1 0.25s ease forwards, spinner-rotate 0.75s infinite linear !important;
 		animation: spinner-show 1.5s 1 0.25s ease forwards, spinner-rotate 0.75s infinite linear !important;
-		z-index: 10001;
+		z-index: -2;
 	}
 
 	html.is-preload body:after {
@@ -1910,7 +1918,7 @@ input, select, textarea {
 		-ms-animation: none !important;
 		animation: none !important;
 		opacity: 1;
-		z-index: 10000;
+		z-index: -2;
 	}
 
 	@media (-webkit-min-device-pixel-ratio: 2) {
@@ -1960,19 +1968,34 @@ input, select, textarea {
 			position: relative;
 		}
 
-			header.major h1:after, header.major h2:after, header.major h3:after, header.major h4:after, header.major h5:after, header.major h6:after {
-				background: #dddddd;
-				content: '';
-				display: block;
-				height: 2px;
-				margin: 0.75em auto 0 auto;
-				position: relative;
-				width: 4em;
-			}
-
-		header.major p {
-			margin-top: 0;
+		header.major h1:after,
+		header.major h2:after,
+		header.major h3:after,
+		header.major h4:after,
+		header.major h5:after,
+		header.major h6:after {
+			content: none !important;
 		}
+
+		header.major h2{
+			color: white;
+			text-shadow:
+			  -1px -1px 0 rgb(22, 36, 53),
+			   1px -1px 0 rgb(22, 36, 53),
+			  -1px  1px 0 rgb(22, 36, 53),
+			   1px  1px 0 rgb(22, 36, 53);
+		  }
+		  p {
+			font-size: 24px;
+			color: rgb(255, 255, 255);
+			text-shadow:
+			  -1px -1px 0 black,
+			   1px -1px 0 black,
+			  -1px  1px 0 black,
+			   1px  1px 0 black;
+		  }
+
+		  
 
 /* Form */
 
@@ -2739,8 +2762,7 @@ input, select, textarea {
 
 		.main .container {
 			padding: 5em 2.5em 8em 2.5em ;
-			background: rgba(255, 255, 255, 0.95);
-			box-shadow: inset 0 1px 0 0 #dddddd;
+			background: transparent;
 		}
 
 			.main .container:before {
@@ -2802,7 +2824,7 @@ input, select, textarea {
 		}
 
 		#header header {
-			color: rgba(255, 255, 255, 0.5);
+			color: rgba(255, 255, 255, 0);
 			display: inline-block;
 			padding-bottom: 8em;
 			vertical-align: middle;
@@ -3127,9 +3149,13 @@ input, select, textarea {
 		/* Footer */
 
 			#footer .container {
+				background: transparent;
 				padding: 3em 1em 1em 1em ;
 			}
-
+			.dark-footer .container {
+				background: rgba(0, 0, 0, 0.6); /* or 'transparent' if you want none */
+				color: #ffffff; /* optional: ensure text is readable */
+			  }
 			#footer footer .copyright {
 				line-height: inherit;
 			}
