@@ -11,7 +11,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-
+		<!--<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;500&display=swap" rel="stylesheet">-->
+	  
+	  
 		<style>
 			#header .major {
 			    padding-top: 150px;
@@ -23,37 +26,24 @@
 		transform: translate(-50%, -50%);
 		height: 3000px;
 		border: 2px solid rgb(0, 0, 0); /* optional for visibility */
-		z-index: 0;
+		z-index: -1;
 		}
-		body {
-			opacity: 0;
-			transition: opacity 0.4s ease;
-			background-color: black; /* or your current background */
+		a:hover h2 {
+			text-shadow: 0 0 10px white, 0 0 20px #f44703;
 		}
-		body.fade-in {
-			opacity: 1;
-		}
-		html.is-preload body::after {
-			content: none !important;
-			display: none !important;
-			background: none !important;
-			opacity: 0 !important;
-			z-index: -9999 !important;
-			pointer-events: none !important;
-		}
-
 		</style>
 	</head>
 	
 	<body class="is-preload">
+
 		<canvas id="lensCanvas" width="1000" height="1000"></canvas>
 		
 		<!-- Header -->
 			<section id="header">
 				<header class="major">
-					<a href="ring_simulation.html">
+					
 						<h1 style="font-family: 'Orbitron', sans-serif;">S. Tran</h1>
-					</a>
+					
 					  
 					<!--<p style="font-family: 'Orbitron', sans-serif; color: white;">Seek Higher Things</a></p> -->
 				</header>
@@ -65,13 +55,21 @@
 			<div class="container">
 			
 			  <!-- Replaces the image with a canvas -->
-			  <span class="image fit primary"><img src="images/eternity_4k.png" alt="" /></span>
+			  <!--<span class="image fit primary"><img src="images/eternity_4k.png" alt="" /></span>-->
 			  <div class="content">
+
 				<header class="major">
-				  <h2 style="font-family: 'Orbitron', sans-serif;">Who am I?</h2>
+				  <h2 style="font-family: 'Orbitron', sans-serif;"></h2>
 				</header>
 				<!-- <p style="font-family: 'Orbitron', sans-serif; color: white;">"Who am I?", you ask. Good question. Now I have to ask in return: "Well, with respect to whom?"</p> -->
-				<h3>Who am I?", you ask. Good question. Now I have to ask in return: "Well, with respect to whom?"</h3>
+				<hr style="border: none; border-top: 2px solid white; margin: 2rem 0;" />
+				<a href="ring_simulation.html">
+					<h2 style="font-family: 'Orbitron', sans-serif; transition: text-shadow 0.3s ease;">Use Simulation</h2>
+				</a>
+				<a href="resume.html">
+					<h2 style="font-family: 'Orbitron', sans-serif; transition: text-shadow 0.3s ease;">View Resume</h2>
+				</a>
+				
 			</div>
 		  
 			  <a href="#two" class="goto-next scrolly">Next</a>
@@ -85,10 +83,10 @@
 		<!-- Two -->
 			<section id="two" class="main special">
 				<div class="container">
-					<span class="image fit primary"><img src="images/eternity_4k.png" alt="" /></span>
+					<!--<span class="image fit primary"><img src="images/lost_in_between_4k.png" alt="" /></span>-->
 					<div class="content">
 						<header class="major">
-							<h2  style="font-family: 'Orbitron', sans-serif;">What do you do?</h2>
+							<h2  style="font-family: 'Orbitron', sans-serif;">What do I do?</h2>
 						</header>
 						<p></p>
 						<ul class="icons-grid">
@@ -101,7 +99,6 @@
 								<h3>Repair Stuff</h3>
 							</li>
 							<li>
-								<a href="ring_simulation.html">
 								<span class="icon solid major fa-code"></span>
 								<h3>Compute Stuff</h3>
 								</a>
@@ -119,12 +116,12 @@
 		<!-- Three -->
 			<section id="three" class="main special">
 				<div class="container">
-					<span class="image fit primary"><img src="images/pic03.jpg" alt="" /></span>
+					<span class="image fit primary"><img src="images/lighthouse_4k.png" alt="" /></span>
 					<div class="content">
 						<header class="major">
 							<h2 style="font-family: 'Orbitron', sans-serif;">One more thing</h2>
 						</header>
-						<p style="font-family: 'Orbitron', sans-serif; color: white;"></p>>Aliquam ante ac id. Adipiscing interdum lorem praesent fusce pellentesque arcu feugiat. Consequat sed ultricies rutrum. Sed adipiscing eu amet interdum lorem blandit vis ac commodo aliquet integer vulputate phasellus lorem ipsum dolor lorem magna consequat sed etiam adipiscing interdum.</p>
+						<p style="font-family: 'Orbitron', sans-serif; color: white;"></p></p>
 					</div>
 					<a href="#footer" class="goto-next scrolly">Next</a>
 				</div>
@@ -451,11 +448,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			</section>
 		-->
 
-		<!-- Footer -->
+		<!-- Footer 
 			<section class="main dark-footer">
 				<div class="container">
 					<header class="major">
-						<h2>Get in touch</h2>
+						<h2 style="font-family: 'Orbitron', sans-serif;">Send me a message</h2>
 					</header>
 					<form method="post" action="#">
 						<div class="row gtr-uniform">
@@ -472,17 +469,10 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				</div>
 				<footer>
 					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Demo Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
+					
 				</footer>
-			</section>
+			</section>-->
 
 		<!-- Scripts -->
 			<!-- Scripts -->
@@ -497,25 +487,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<!-- Your script -->
 			<script src="ring.js"></script>
 
-<script>
-  // Fade in on page load
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('fade-in');
-  });
 
-  // Fade out on clicking a link to another HTML page
-  document.querySelectorAll('a[href$=".html"]').forEach(link => {
-    link.addEventListener('click', function (e) {
-      if (!link.target || link.target === '_self') {
-        e.preventDefault();
-        document.body.classList.remove('fade-in');
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-          window.location = link.href;
-        }, 400); // match transition duration
-      }
-    });
-  });
-</script>
 	</body>
 </html>
