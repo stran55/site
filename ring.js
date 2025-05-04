@@ -1,11 +1,13 @@
-const canvas = document.getElementById('lensCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("lensCanvas");
+const ctx = canvas.getContext("2d");
 
-const N = 1000;
-const fov = 100;
-let theta_E = Math.floor(10 + Math.random() * 20);
-let sigma = Math.floor(1 + Math.random() * 2); // 1 to 5 inclusive
-let amp = Math.floor(1 + Math.random() * 5);
+const N = 1000; // width in pixels
+const M = 1000; // height in pixels
+const fov = 200;
+
+let theta_E = Math.floor(5 + Math.random() * 20);
+let sigma = Math.floor(1 + Math.random() * 1);
+let amp = Math.floor(1 + Math.random() * 4);
 
 let x_start, y_start, x_end, y_end;
 let t = 0;
@@ -13,38 +15,45 @@ const steps = 300;
 
 let mode = "fade-in"; // "fade-in", "run", "fade"
 let fadeFrames = 0;
-const maxFadeFrames = 30;
+const maxFadeFrames = 60;
 const framerate = 20;
 
 // Coordinate grid
 const x_vals = new Array(N);
-const y_vals = new Array(N);
+const y_vals = new Array(M);
 for (let i = 0; i < N; i++) {
   x_vals[i] = (i - N / 2) * (fov / N);
-  y_vals[i] = (i - N / 2) * (fov / N);
+}
+for (let j = 0; j < M; j++) {
+  y_vals[j] = (j - M / 2) * (fov / M);
 }
 
-let imageData = ctx.createImageData(N, N);
+let imageData = ctx.createImageData(N, M);
 let pixels = imageData.data;
 
 function computeFrame() {
-  // Clear both canvas and pixel buffer
+  // Clear canvas
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(
+    Math.floor(canvas.width / 2 - N / 2),
+    Math.floor(canvas.height / 2 - M / 2),
+    N,
+    M
+  );
+  
 
   if (mode !== "fade") {
     for (let i = 0; i < pixels.length; i++) {
       pixels[i] = 0;
     }
   }
-  
 
   const x0 = x_start + (x_end - x_start) * (t / steps);
   const y0 = y_start + (y_end - y_start) * (t / steps);
   t++;
 
   if (mode === "fade-in" || mode === "run") {
-    for (let j = 0; j < N; j++) {
+    for (let j = 0; j < M; j++) {
       for (let i = 0; i < N; i++) {
         const x = x_vals[i];
         const y = y_vals[j];
@@ -87,7 +96,12 @@ function computeFrame() {
       }
     }
 
-    ctx.putImageData(imageData, 0, 0);
+    ctx.putImageData(
+      imageData,
+      Math.floor(canvas.width / 2 - N / 2),
+      Math.floor(canvas.height / 2 - M / 2)
+    );
+    
   }
 
   // Handle transitions
@@ -104,43 +118,46 @@ function computeFrame() {
   }
 
   if (mode === "fade") {
-    // Only draw a fading overlay — don't touch imageData
-    ctx.fillStyle = "rgba(0, 0, 0, 0.25)"; // Adjust opacity to control fade speed
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+    ctx.fillRect(
+      canvas.width / 2 - N / 2,
+      canvas.height / 2 - M / 2,
+      N,
+      M
+    );
 
     fadeFrames++;
     if (fadeFrames >= maxFadeFrames) {
       setNewPath();
     }
   }
+
   setTimeout(computeFrame, framerate);
 }
 
 function setNewPath() {
   let theta;
   if (Math.random() < 0.5) {
-    // Right side arc: −π/4 to +π/4
     theta = (Math.random() - 0.5) * (Math.PI / 3);
   } else {
-    // Left side arc: 3π/4 to 5π/4 => π ± π/4
     theta = Math.PI + (Math.random() - 0.5) * (Math.PI / 3);
   }
 
-  const radius = 200;
+  const radius = 120;
 
   x_start = radius * Math.cos(theta);
   y_start = radius * Math.sin(theta);
 
-  const spread = 20; // how far the end point can vary
+  const spread = 20;
   x_end = -x_start + (Math.random() - 0.5) * spread;
   y_end = -y_start + (Math.random() - 0.5) * spread;
-  
+
   t = 0;
   fadeFrames = 0;
   mode = "fade-in";
   theta_E = Math.floor(10 + Math.random() * 20);
-  sigma = Math.floor(1 + Math.random() * 2); // 1 to 5 inclusive
-  amp = Math.floor(1 + Math.random() * 5);
+  sigma = Math.floor(1 + Math.random() * 1);
+  amp = Math.floor(1 + Math.random() * 4);
 }
 
 setNewPath();
