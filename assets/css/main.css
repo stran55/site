@@ -69,9 +69,33 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+/*GLOW GROW = AWESOME!!!*/
+.glow-grow {
+	transition: transform 0.4s cubic-bezier(0.25, 1.5, 0.5, 1), text-shadow 0.3s ease;
+	text-shadow: none;
+  }
+  
+  .glow-grow:hover {
+	text-shadow: 0 0 12px #ff6600, 0 0 20px #ffaa00;
+	transform: scale(1.05);
+  }
+  
+  .grow-smooth {
+	transition: transform 0.3s ease, text-shadow 0.3s ease;
+	text-shadow: none;
+  }
+  
+  .grow-smooth:hover {
+	transform: scale(1.05);
+	text-shadow: 0 0 12px #ff6600, 0 0 20px #ffaa00;
+  }
+  
+  
 
 /*DISABLE/ENABLE SCROLL BAR HERES*/
 html, body {
+	min-height: 100lvh;
+
 	overflow: auto;
 	scrollbar-width: none; /* Firefox */
   }
@@ -289,7 +313,7 @@ html, body {
 		}
 
 		.container.large {
-			width: 43.75em;
+			width: 45em;
 		}
 
 		.container.xlarge {
@@ -1936,7 +1960,11 @@ html, body {
 	}
 
 /* Section/Article */
-
+section {
+	scroll-snap-align: start;
+	min-height: 100svh; /* instead of 100vh */
+  }
+  
 	section.special, article.special {
 		text-align: center;
 	}
@@ -3069,6 +3097,7 @@ html, body {
 		/* Basic */
 
 			html, body {
+				
 				min-width: 320px;
 			}
 
