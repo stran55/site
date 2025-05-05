@@ -38,6 +38,12 @@
         font-family: 'Orbitron', sans-serif;
     }
 
+    a h2 {
+    color: white;
+    text-decoration: none;
+    }
+
+
     @keyframes fadeFlickerDown {
     0% { opacity: 0; transform: translateY(0px); filter: brightness(0.6); }
     50% { opacity: 1; filter: brightness(1.1); }
@@ -108,8 +114,23 @@
     }
 
 
+    .centered-title {
+    text-align: center;
+
+    }
+    a:hover p {
+        text-decoration: underline;
+        }
+
+        a:hover h2 {
+        text-decoration: none;
+        }
 
 
+    a:hover h2 {
+        text-decoration: none;
+		text-shadow: 0 0 10px white, 0 0 20px #f44703;
+	}
 
 
     .section {
@@ -124,7 +145,10 @@
 
 
 
-
+    .no-glow {
+    box-shadow: none !important;
+    border: none !important;
+    }
     .flicker-hover::after {
     content: '';
     position: absolute;
@@ -141,8 +165,15 @@
     .flicker-hover:hover::after {
     animation: flickerPulseHover 0.5s ease-in-out;
     }
+    .no-flicker::after {
+    display: none !important;
+    }
 
-
+    .appear-0 {
+    animation: fadeFlickerDown 1s ease forwards, flickerPulse 0.8s ease-in-out;
+    animation-delay: 0s;
+    z-index: 8;
+    }
     .appear-1 {
     animation: fadeFlickerDown 1s ease forwards, flickerPulse 0.8s ease-in-out;
     animation-delay: 0.3s;
@@ -209,24 +240,24 @@
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
     
   </style>
 </head>
 <body>
+    
   <div class="container">
+    <div class="section appear-0 no-flicker">
+    <h1 class = "centered-title"; style="font-size: 48px">Sean Tran</h1>
     <div class="section appear-1 flicker-hover">
-        
-      <h1>Sean Tran</h1>
-      <p style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-        <i class="fas fa-envelope"></i>
-        <a href="seantran55@email.com">seantran55@email.com</a>
-        <i class="fas fa-globe"></i> 
-        <a href="https://seantran.com" target="_blank">seantran.com</a>
-        <i class="fab fa-github"></i> 
-        <a href="https://github.com/stran55" target="_blank">github.com/stran55</a>
+      <p style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+        <span><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem;"></i> 
+        <a>Irving, TX</a></span>
+        <span><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+        <a href="seantran55@email.com">seantran55@email.com</a></span>
+        <span><i class="fas fa-globe" style="margin-right: 0.5rem;"></i> 
+        <a href="https://seantran.com" target="_blank">stran55.github.io/site</a></span>
+        <span><i class="fab fa-github" style="margin-right: 0.5rem;"></i> 
+        <a href="https://github.com/stran55" target="_blank">github.com/stran55</a></span>
      </p>
 
      <p>I'm an undergrad with a passion for science, code, math, and combining all three to make cool space tools.</p>
@@ -378,20 +409,26 @@
     -->
     
     <div class="section appear-6 flicker-hover">
-        <p>
+        <p class="centered-title">Eligible to work full-time in the U.S. with no restrictions.</p>
+        <p class="centered-title">
             <a href="assets/resume.pdf" download style="
               display: inline-block;
               background: var(--accent);
               color: rgb(0, 0, 0);
-              padding: 0.6rem 1rem;
+              padding: 0.5rem 1rem;
               border-radius: 8px;
-              font-weight: bold;
+              font-weight: normal;
               text-decoration: none;
               transition: background 0.3s ease;
             ">Download Official Resume (PDF)</a>
           </p>
-        <p>Eligible to work full-time in the U.S. with no restrictions.</p>
     </div>
+  </div>
+  <div class="section appear-7 no-flicker no-glow">
+    <a href="index.html">
+        <h2 class="centered-title"; style="font-size: 32px; transition: text-shadow 0.3s ease;">Return</h2>
+    </a>
+  </div>
   </div>
 </body>
 </html>
