@@ -12,7 +12,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-
+#blackOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+  z-index: 9999;
+}
     :root {
       --bg: #000000;
       --text: #e0e0e0;
@@ -42,7 +53,10 @@
     color: white;
     text-decoration: none;
     }
-
+    html, body {
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    }
 
     @keyframes fadeFlickerDown {
     0% { opacity: 0; transform: translateY(0px); filter: brightness(0.6); }
@@ -112,6 +126,15 @@
     98%  { opacity: 0.1; }
     100% { opacity: 1; }
     }
+    .glow-smooth {
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+  text-shadow: none;
+}
+
+.glow-smooth:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 12px #ff6600, 0 0 20px #ffaa00;
+}
 
 
     .centered-title {
@@ -425,10 +448,25 @@
     </div>
   </div>
   <div class="section appear-7 no-flicker no-glow">
-    <a href="index.html">
-        <h2 class="centered-title"; style="font-size: 32px; transition: text-shadow 0.3s ease;">Return</h2>
-    </a>
+    <h2 class="centered-title glow-smooth"
+    style="font-size: 32px; font-family: 'Orbitron', sans-serif; cursor: pointer;"
+    onclick="fadeAndRedirect('index.html')">
+  Return
+</h2>
+
   </div>
   </div>
+  <div id="blackOverlay"></div>
+  <script>
+    function fadeAndRedirect(url) {
+      const overlay = document.getElementById("blackOverlay");
+      overlay.style.opacity = "1";
+      overlay.style.pointerEvents = "auto";
+      setTimeout(() => {
+        window.location.href = url;
+      }, 700); // match transition duration
+    }
+  </script>
+  
 </body>
 </html>

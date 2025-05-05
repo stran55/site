@@ -97,8 +97,56 @@
           document.body.classList.add('fade-in');
         });
       </script>
-      
+      <a href="#" onclick="fadeAndRedirect('index.html')" style="
+      position: absolute;
+      top: 1050px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+    ">
+  <h2 style="
+        font-size: 32px;
+        color: white;
+        margin: 0;
+        text-shadow: none;
+        transition: text-shadow 0.3s ease, transform 0.2s ease;
+      "
+      onmouseover="this.style.textShadow='0 0 12px #ff6600, 0 0 20px #ffaa00'; this.style.transform='scale(1.05)';"
+      onmouseout="this.style.textShadow='none'; this.style.transform='scale(1)';">
+    Return
+  </h2>
+</a>
+
+    <div id="blackOverlay"></div>
+
+<style>
+  #blackOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+    z-index: 9999;
+  }
+</style>
+<script>
+  function fadeAndRedirect(url) {
+    const overlay = document.getElementById("blackOverlay");
+    overlay.style.opacity = "1";
+    overlay.style.pointerEvents = "auto";
+    setTimeout(() => {
+      window.location.href = url;
+    }, 700); // match transition time
+  }
+</script>
+
 </body>
+
 <style>
     body {
       background-color: black;

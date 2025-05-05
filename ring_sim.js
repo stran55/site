@@ -7,6 +7,8 @@ const N = 1000;
 const M = 1000;
 const fov = 200;
 
+
+//Adjustable values for intensity, amplitude, and ring size
 let slider1 = document.getElementById("slider1");
 let slider2 = document.getElementById("slider2");
 let value1 = document.getElementById("value1");
@@ -43,14 +45,13 @@ function updateSimulation(varA, varB, varC) {
 let x_start, y_start, x_end, y_end;
 let t = 0;
 const steps = 300;
-
-let mode = "fade-in";
 let fadeFrames = 0;
 const maxFadeFrames = 60;
 const framerate = 20;
+let mode = "fade-in";
 
+//Play/pause feature
 let paused = false;
-
 const playPauseBtn = document.getElementById("playPauseBtn");
 playPauseBtn.addEventListener("click", () => {
   paused = !paused;
@@ -130,6 +131,7 @@ function computeFrame() {
           b = (color - 170) * 3;
         }
 
+        //Ray tracing (I guess inverse)
         const index = 4 * (j * N + i);
         pixels[index] = r;
         pixels[index + 1] = g;
@@ -145,6 +147,7 @@ function computeFrame() {
     );
   }
 
+  //Reduces animation cutting via loop
   if (mode === "fade-in") {
     fadeFrames++;
     if (fadeFrames >= maxFadeFrames) {
@@ -175,7 +178,9 @@ function computeFrame() {
   setTimeout(computeFrame, framerate);
 }
 
+//Repeat with new source
 function setNewPath() {
+  //Randomize starting position of source between pi/3 and -pi/3 (both left and right side)
   let theta;
   if (Math.random() < 0.5) {
     theta = (Math.random() - 0.5) * (Math.PI / 3);
@@ -183,11 +188,12 @@ function setNewPath() {
     theta = Math.PI + (Math.random() - 0.5) * (Math.PI / 3);
   }
 
+  //Starting position of source
   const radius = 120;
-
   x_start = radius * Math.cos(theta);
   y_start = radius * Math.sin(theta);
 
+  //Randomize offset from exact center (simulates imperfect einstein ring/no ring)
   const spread = 20;
   x_end = -x_start + (Math.random() - 0.5) * spread;
   y_end = -y_start + (Math.random() - 0.5) * spread;
