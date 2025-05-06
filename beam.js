@@ -10,8 +10,8 @@ canvas.height = 1000;
 // Add slider to control launch angle
 document.body.insertAdjacentHTML('beforeend', `
   <div style="position: fixed; bottom: 20px; left: 20px; color: white; font-family: sans-serif;">
-    Angle: <input id="angleSlider" type="range" min="-90" max="90" value="90" step="1">
-    <span id="angleValue">90</span>°
+    Angle: <input id="angleSlider" type="range" min="-30" max="30" value="30" step="1">
+    <span id="angleValue">30</span>°
   </div>
 `);
 
@@ -20,10 +20,10 @@ const angleDisplay = document.getElementById("angleValue");
 
 // Simulation parameters
 const N = 1000;
-const fov = 40;
-const theta_E = 1;
-const dt = 0.02;
-const steps = 5000;
+const fov = 20;
+const theta_E = 4;
+const dt = 0.01;
+const steps = 4000;
 
 const worldToCanvas = (x, y) => {
   const scale = canvas.width / fov;
@@ -64,7 +64,7 @@ function simulateBeam(launchAngleDegrees) {
   const trail = ctx.createImageData(canvas.width, canvas.height);
   const pixels = trail.data;
 
-  let x_ray = -20;
+  let x_ray = -10;
   let y_ray = 0;
   const theta = (launchAngleDegrees * Math.PI) / 180;
   let vx = Math.cos(theta);
@@ -83,12 +83,12 @@ function simulateBeam(launchAngleDegrees) {
     y_ray += vy * dt;
 
     const [cx, cy] = worldToCanvas(x_ray, y_ray);
-    drawGaussian(pixels, Math.floor(cx), Math.floor(cy), 15.0, 2.0);
+    drawGaussian(pixels, Math.floor(cx), Math.floor(cy), 10.0, 5.0);
   }
 
   ctx.putImageData(trail, 0, 0);
   ctx.beginPath();
-  ctx.arc(canvas.width / 2, canvas.height / 2, 10, 0, 2 * Math.PI);
+  ctx.arc(canvas.width / 2, canvas.height / 2, 17, 0, 2 * Math.PI);
   ctx.fillStyle = "black";
   ctx.fill();
 
@@ -98,14 +98,14 @@ function simulateBeam(launchAngleDegrees) {
 }
 
 // Auto-sweep settings
-let autoAngle = 90;
+let autoAngle = 30;
 let autoDirection = -1;
 
 // Render loop: 10 times per second
 setInterval(() => {
-  const slowdown = Math.cos((autoAngle * Math.PI) / 180);
-autoAngle += autoDirection * 0.7 * Math.pow(Math.abs(slowdown), 0.4);
-  if (autoAngle <= -90 || autoAngle >= 90) autoDirection *= -1;
+  const slowdown = Math.cos((autoAngle * Math.PI) / 60); //need to set to interval size (so 180 for -90 to 90)
+autoAngle += autoDirection * 0.5 * Math.pow(Math.abs(slowdown), 0.5);
+  if (autoAngle <= -30 || autoAngle >= 30) autoDirection *= -1;
   slider.value = autoAngle.toFixed(1);
   const angle = autoAngle;
   angleDisplay.textContent = angle;
