@@ -1,3 +1,4 @@
+(function () {
 const canvas = document.getElementById("lensCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -163,3 +164,4 @@ function setNewPath() {
 setNewPath();
 computeFrame();
 
+})();
