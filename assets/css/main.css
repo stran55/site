@@ -24,8 +24,35 @@ section, summary, time, mark, audio, video {
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
+	  
 
-
+	.continue-text {
+		font-family: 'Orbitron', sans-serif;
+		font-size: 32px;
+		color: white;
+		opacity: 1;
+		animation: pulse 2s infinite ease-in-out;
+		cursor: pointer;
+		text-align: center;
+		display: inline-block;
+		transition: transform 0.3s ease, text-shadow 0.3s ease;
+	  }
+	  
+	  .continue-text:hover {
+		opacity: 1; 
+  		animation: none;
+		transform: scale(1.05);
+		text-shadow: 0 0 12px #ff6600, 0 0 20px #ffaa00;
+	  }
+	  
+	  @keyframes pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0; }
+	  }
+	  
+	  
+	  
+	  
 	
 body {
 	line-height: 1;
@@ -90,12 +117,22 @@ input, select, textarea {
 	text-shadow: 0 0 12px #ff6600, 0 0 20px #ffaa00;
   }
   
+  /* Start page invisible, fade in */
+  .section {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+  }
+  
+  .hidden {
+	display: none;
+	opacity: 0;
+  }
   
 
 /*DISABLE/ENABLE SCROLL BAR HERES*/
 html, body {
-	min-height: 100lvh;
 
+	min-height: 100lvh;
 	overflow: auto;
 	scrollbar-width: none; /* Firefox */
   }
@@ -108,8 +145,12 @@ html, body {
 
 	html {
 		box-sizing: border-box;
-	}
 
+	}
+	.smooth-scroll {
+		scroll-behavior: smooth;
+	  }
+	  
 	*, *:before, *:after {
 		box-sizing: inherit;
 	}
@@ -1963,6 +2004,7 @@ html, body {
 section {
 	scroll-snap-align: start;
 	min-height: 100svh; /* instead of 100vh */
+	
   }
   
 	section.special, article.special {
