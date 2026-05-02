@@ -4,6 +4,7 @@
 		<title>Sean Tran</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" type="image/png" href="images/whitebearC.png">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
@@ -12,6 +13,11 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	  
 		<style>
+		html, body {
+		overflow: hidden !important;
+		height: 100%;
+		}
+
 			#header .major {
 			    padding-top: 150px;
 			}
@@ -24,6 +30,7 @@
 		border: 2px solid rgb(0, 0, 0); /* optional for visibility */
 		z-index: -1;
 		}
+		
 		a:hover h2 {
 			text-shadow: 0 0 10px white, 0 0 20px #f44703;
 		}
@@ -40,33 +47,40 @@
 		z-index: -1;
 		pointer-events: none;
 		}
+		.continue-text {
+		font-size: 40px; /* adjust this */
+		}
 		.dropdown {
 		max-height: 0;
 		overflow: hidden;
-		transition: max-height 0.4s ease;
+		transition: max-height 0.5s ease;
 		margin-top: -10px;
 		}
 
 		.dropdown.show {
-		max-height: 400px;
+		max-height: 600px;
 		}
 
 		.dropdown-item {
 		font-family: 'Orbitron', sans-serif;
-		font-size: 24px;
-		margin: 24px 0;
+		font-size: 30px;
+		margin: 10px 20px;
 		opacity: 0.8;
 		transition: transform 0.3s ease, text-shadow 0.3s ease;
 		color: #ffc76c;
-		line-height: 1.6;
+		line-height: 1.2;
 		word-break: break-word;
+		display: block;
 		}
 		.dropdown a {
 		color: white;
 		text-decoration: none;
+		display: block;
+        padding: 12px 0;
+		border-bottom: none !important;
 		}
 
-		.dropdown-item:hover {
+		.dropdown a:hover .dropdown-item {
 		transform: scale(1.05);
 		text-shadow: 0 0 10px white, 0 0 20px #f44703;
 		opacity: 1;
@@ -82,15 +96,69 @@
 		
 		.dropdown-wrapper {
 		margin-bottom: 10px;  /* pulls Experiments upward only */
+		position: relative;
 		}
 		.centered-title {
 		cursor: pointer;
+		font-size: 40px;
+		}
+		.preview-box {
+		position: absolute;
+		left: 95%;   /* sits directly to the right of dropdown */
+		top: 20%;
+		margin-left: 20px;
+		transform: translateY(-50%);
+		width: 500px;
+		background: rgba(0,0,0,0.0);
+		padding: 15px;
+		border-radius: 10px;
+		color: white;
+		opacity: 0;
+		pointer-events: none;
+		
+		transition: opacity 0.25s ease, transform 0.25s ease;
+		z-index: 10;
+
+  		box-shadow: 10px 0px 10px #ffc76c;
+		border: none;
+		outline: none;
+		}
+
+		.preview-box img {
+		width: 100%;
+		border-radius: 6px;
+		margin-bottom: 10px;
+		opacity: 0;
+  		transition: opacity 0.3s ease;
+		}
+		#previewText {
+		margin: 0;
+		font-family: 'Exo 2', sans-serif;
+		text-transform: none;
+		color: #ffffff;
+		font-size: 30px
+		}
+		.preview-box.show img {
+		opacity: 1;
+		}
+		#flash {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle at top left, white 0%, #ff9900 5%, transparent 25%);
+		background-size: 0% 0%;
+		background-repeat: no-repeat;
+		opacity: 1;
+		pointer-events: none;
+		z-index: 999;
 		}
 		</style>
 	</head>
 	
 	<body class="is-preload">
-
+		<div id="flash"></div>
 		<video autoplay muted loop playsinline id="bgVideo">
 		<source src="ringvid.mp4" type="video/mp4">
 		Your browser does not support the video tag.
@@ -100,9 +168,9 @@
 			<section id="header">
 				<header class="major">
 					
-						<h1 style="font-family: 'Orbitron', sans-serif;">S. Tran</h1>
+						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 80px;">S. Tran</h1>
 
-						<h2 class="continue-text" onclick="document.getElementById('three').scrollIntoView();">
+						<h2 class="continue-text" onclick="goToMain()">
 							Continue
 						</h2>
 						  
@@ -191,10 +259,14 @@
 									style="font-family: 'Orbitron', sans-serif;">
 									Projects <i class="fas fa-chevron-down arrow"></i>
 								</h2>
-
+								<div id="projectPreview" class="preview-box">
+									<img id="previewImg" src="" alt="">
+									<p id="previewText"></p>
+									
+								</div>
 								<div id="projectsDropdown" class="dropdown">
 										<a href="project1_schlieren.html">
-										<h3 class="dropdown-item">Optical Schlieren Imaging</h3>
+										<h3 class="dropdown-item">Schlieren Imaging System</h3>
 										</a>
 										<a href="project2_eddy.html">
 										<h3 class="dropdown-item">Eddy Current Braking</h3>
@@ -591,7 +663,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="beam.js"></script>
 			<script>
 				document.addEventListener("keydown", function () {
-				  document.getElementById("three").scrollIntoView();
+				goToMain();
 				});
 			</script>
 			<script>
@@ -620,7 +692,91 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			}
 			});
 			</script>
-			  
+			<script>
+			const preview = document.getElementById("projectPreview");
+			const img = document.getElementById("previewImg");
+			const text = document.getElementById("previewText");
+			preview.classList.add("show");
+			const projectData = {
+			"Schlieren Imaging System": {
+				img: "images/schlieren_image.png",
+				text: "Visualizing air flow using optical methods."
+			},
+			"Eddy Current Braking": {
+				img: "images/brake_stop.jpg",
+				text: "Magnetic braking using induced currents."
+			},
+			"Laser Spectroscopy": {
+				img: "images/laser_wave4.jpg",
+				text: "Analyzing atomic transitions using lasers."
+			},
+			"Semiconductor Characterization": {
+				img: "images/semi.png",
+				text: "Measuring electrical properties of materials."
+			},
+			"Faraday Rotation": {
+				img: "images/polarize.png",
+				text: "Magnetic field effects on polarized light."
+			}
+			};
+
+			let hoverTimeout;
+
+			document.querySelectorAll(".dropdown a").forEach(item => {
+			item.addEventListener("mouseenter", () => {
+				const data = projectData[item.textContent.trim()];
+				if (!data) return;
+
+				// cancel any previous animation
+				clearTimeout(hoverTimeout);
+
+				// fade out + move left
+				preview.style.opacity = 0;
+				preview.style.transform = "translateX(-20px)";
+
+				hoverTimeout = setTimeout(() => {
+				img.src = data.img;
+				text.textContent = data.text;
+
+				// start from right
+				preview.style.transform = "translateX(20px)";
+				preview.offsetHeight;
+
+				// animate in
+				preview.style.opacity = 1;
+				preview.style.transform = "translateX(0)";
+				}, 100);
+			});
+
+			item.addEventListener("mouseleave", () => {
+				clearTimeout(hoverTimeout);
+
+				preview.style.opacity = 0;
+				preview.style.transform = "translateX(0)";
+			});
+			});
+			</script>
+			<script>
+			function goToMain() {
+			const flash = document.getElementById("flash");
+			const header = document.getElementById("header");
+			const main = document.getElementById("three");
+
+			// expansion with smooth easing
+			flash.style.transition = "background-size 0.10s cubic-bezier(0.2, 1, 0.3, 1)";
+			flash.style.backgroundSize = "300% 300%";
+			
+			setTimeout(() => {
+				header.style.display = "none";
+				main.style.display = "block";
+			}, 0);
+
+			setTimeout(() => {
+			flash.style.transition = "opacity 1s ease-out";
+			flash.style.opacity = 0;
+			}, 150);
+		}
+			</script>
 	</body>
 </html>
 
