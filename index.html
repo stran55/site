@@ -52,9 +52,16 @@
 		}
 		.dropdown {
 		max-height: 0;
-		overflow: hidden;
+		overflow-x: visible;
+		overflow-y: hidden;
 		transition: max-height 0.5s ease;
 		margin-top: -10px;
+		text-align: left;
+		outline: 0px solid black;
+		width: 600px;
+		position: relative;    /* or absolute if needed */
+		left: 50%;
+		transform: translateX(-50%);
 		}
 
 		.dropdown.show {
@@ -68,10 +75,44 @@
 		opacity: 0.8;
 		transition: transform 0.3s ease, text-shadow 0.3s ease;
 		color: #ffc76c;
-		line-height: 1.2;
+		line-height: 1.1;
 		word-break: break-word;
 		display: block;
+		position: relative;
+		padding-left: 100px;
 		}
+		.dropdown-item::before {
+		content: "▶";  /* triangle */
+		position: absolute;
+		left: 20px;   /* distance from text */
+		top: 50%;
+		transform: translateY(-50%);
+
+		font-size: 40px;
+		color: #ffc76c; 
+		transition: transform 0.3s ease;
+		}
+
+		.dropdown-item {
+		position: relative;
+		}
+
+
+		.dropdown a:hover .dropdown-item::before {
+		border-left-color: white;
+		filter: drop-shadow(0 0 6px white) drop-shadow(0 0 10px #f44703);
+		transform: translateY(-50%) translateX(10px);
+		}
+		.item-text {
+		display: inline-block;
+		transition: transform 0.3s ease, text-shadow 0.3s ease;
+		}
+
+		.dropdown a:hover .item-text {
+		transform: scale(1.05);
+		text-shadow: 0 0 10px white, 0 0 20px #f44703;
+		}
+
 		.dropdown a {
 		color: white;
 		text-decoration: none;
@@ -80,11 +121,7 @@
 		border-bottom: none !important;
 		}
 
-		.dropdown a:hover .dropdown-item {
-		transform: scale(1.05);
-		text-shadow: 0 0 10px white, 0 0 20px #f44703;
-		opacity: 1;
-		}
+		
 		.arrow {
 		margin-left: 10px;
 		transition: transform 0.3s ease;
@@ -104,13 +141,14 @@
 		}
 		.preview-box {
 		position: absolute;
-		left: 95%;   /* sits directly to the right of dropdown */
+		right: -20vw;  
 		top: 20%;
 		margin-left: 20px;
 		transform: translateY(-50%);
-		width: 500px;
+		width: clamp(250px, 20vw, 500px);
+		max-width: 90vw;
 		background: rgba(0,0,0,0.0);
-		padding: 15px;
+		padding: 25px;
 		border-radius: 10px;
 		color: white;
 		opacity: 0;
@@ -266,19 +304,19 @@
 								</div>
 								<div id="projectsDropdown" class="dropdown">
 										<a href="project1_schlieren.html">
-										<h3 class="dropdown-item">Schlieren Imaging System</h3>
+										<h3 class="dropdown-item"><span class="item-text">Schlieren Imaging System</span></h3>
 										</a>
 										<a href="project2_eddy.html">
-										<h3 class="dropdown-item">Eddy Current Braking</h3>
+										<h3 class="dropdown-item"><span class="item-text">Eddy Current Braking</span></h3>
 										</a>
 										<a href="project3_laser.html">
-										<h3 class="dropdown-item">Laser Spectroscopy</h3>
+										<h3 class="dropdown-item"><span class="item-text">Laser Diode Spectroscopy</span></h3>
 										</a>
 										<a href="project4_semi.html">
-										<h3 class="dropdown-item">Semiconductor Characterization</h3>
+										<h3 class="dropdown-item"><span class="item-text">Semiconductor Characterization</span></h3>
 										</a>
 										<a href="project5_faraday.html">
-										<h3 class="dropdown-item">Faraday Rotation</h3>
+										<h3 class="dropdown-item"><span class="item-text">Faraday Rotation</span></h3>
 										</a>
 								</div>
 
@@ -288,9 +326,9 @@
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif;">Lensing Sim</h2>
 							</a>
 							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
-							<h2 class="centered-title grow-smooth">View Resume<span style="margin-left: 10px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
+							<h2 class="centered-title grow-smooth">Resume <span style="margin-left: 10px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
 							</a>
-							<a href="index.html" class="exit-button">
+							<a href="index.html" class="exit-button" onclick="goBack(event)">
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; "><i class="fas fa-left-long"></i>
 									<span style="margin-right: 30px; margin-left: 10px">Return</span></h2>
 							</a>
@@ -706,12 +744,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				img: "images/brake_stop.jpg",
 				text: "Magnetic braking using induced currents."
 			},
-			"Laser Spectroscopy": {
+			"Laser Diode Spectroscopy": {
 				img: "images/laser_wave4.jpg",
 				text: "Analyzing atomic transitions using lasers."
 			},
 			"Semiconductor Characterization": {
-				img: "images/semi.png",
+				img: "images/hall_ln.png",
 				text: "Measuring electrical properties of materials."
 			},
 			"Faraday Rotation": {
@@ -777,6 +815,18 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			}, 150);
 		}
 			</script>
+		<script>
+			function goBack(e) {
+			e.preventDefault();
+
+			document.body.style.transition = "opacity 0.5s ease";
+			document.body.style.opacity = 0;
+
+			setTimeout(() => {
+				window.location.href = "index.html";
+			}, 300);
+			}
+		</script>
 	</body>
 </html>
 
