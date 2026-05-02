@@ -4,7 +4,7 @@
 		<title>Sean Tran</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="icon" href="whitebearC.png">
+		<link rel="icon" type="image/png" href="images/whitebearC.png">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
@@ -14,6 +14,10 @@
 	  
 		<style>
 		html, body {
+		-webkit-user-select: none; /* Chrome, Safari */
+		-moz-user-select: none;    /* Firefox */
+		-ms-user-select: none;     /* IE/Edge */
+		user-select: none;
 		overflow: hidden !important;
 		height: 100%;
 		}
@@ -137,7 +141,7 @@
 		}
 		.centered-title {
 		cursor: pointer;
-		font-size: 40px;
+		font-size: 36px;
 		}
 		.preview-box {
 		position: absolute;
@@ -147,7 +151,7 @@
 		transform: translateY(-50%);
 		width: clamp(250px, 20vw, 500px);
 		max-width: 90vw;
-		background: rgba(0,0,0,0.0);
+		background: rgba(0,0,0,0.75);
 		padding: 25px;
 		border-radius: 10px;
 		color: white;
@@ -157,7 +161,7 @@
 		transition: opacity 0.25s ease, transform 0.25s ease;
 		z-index: 10;
 
-  		box-shadow: 10px 0px 10px #ffc76c;
+  		box-shadow: 0px 0px 10px #ffc76c;
 		border: none;
 		outline: none;
 		}
@@ -192,10 +196,46 @@
 		pointer-events: none;
 		z-index: 999;
 		}
+		.click-flash {
+		position: fixed;
+		width: 40px;
+		height: 40px;
+		pointer-events: none;
+		transform: translate(-50%, -50%) scale(0.2);
+
+		background: radial-gradient(circle at center,
+			rgba(255, 255, 255, 0.9) 0%, 
+			rgba(255, 239, 120, 0.8) 10%, 
+			rgba(255, 208, 0, 0.6) 25%, 
+			rgba(250, 199, 104, 0.3) 50%,
+			transparent 70%
+			);
+
+		opacity: 1;
+		  animation: expand 0.1s ease-out forwards,
+             fade 0.9s ease-out forwards;
+
+		}
+
+		@keyframes expand {
+		to {
+			transform: translate(-50%, -50%) scale(1.5);
+		}
+		}
+
+		@keyframes fade {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+		}
 		</style>
 	</head>
 	
 	<body class="is-preload">
+		
 		<div id="flash"></div>
 		<video autoplay muted loop playsinline id="bgVideo">
 		<source src="ringvid.mp4" type="video/mp4">
@@ -206,16 +246,12 @@
 			<section id="header">
 				<header class="major">
 					
-						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 80px;">S. Tran</h1>
+						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 64px;">S. Tran</h1>
 
 						<h2 class="continue-text" onclick="goToMain()">
-							Continue
+							Continue <i class="fas fa-right-long"></i> 
 						</h2>
-						  
 
-
-
-					  
 					<!--<p style="font-family: 'Orbitron', sans-serif; color: white;">Seek Higher Things</a></p> -->
 				</header>
 
@@ -827,6 +863,123 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			}, 300);
 			}
 		</script>
+			<script>
+			document.addEventListener("click", function(e) {
+			const flash = document.createElement("span");
+			flash.className = "click-flash";
+
+			flash.style.left = e.clientX + "px";
+			flash.style.top = e.clientY + "px";
+
+			document.body.appendChild(flash);
+
+			setTimeout(() => {
+				flash.remove();
+			}, 1100);
+			});
+			</script>
+			<script>
+			let lastClick = null;
+			let lastClickTimer = null;
+
+			document.addEventListener("click", function(e) {
+			const x = e.clientX;
+			const y = e.clientY;
+
+			// lightning only if recent click exists
+			if (lastClick) {
+				createLightning(lastClick.x, lastClick.y, x, y);
+			}
+
+			// update last click
+			lastClick = { x, y };
+
+			// reset timer
+			clearTimeout(lastClickTimer);
+			lastClickTimer = setTimeout(() => {
+				lastClick = null;
+			}, 500); 
+			});
+
+			document.addEventListener("click", function(e) {
+			const x = e.clientX;
+			const y = e.clientY;
+
+			// your existing flash
+			const flash = document.createElement("span");
+			flash.className = "click-flash";
+			flash.style.left = x + "px";
+			flash.style.top = y + "px";
+			document.body.appendChild(flash);
+			flash.addEventListener("animationend", () => flash.remove());
+
+			// lightning if previous click exists
+			if (lastClick) {
+				createLightning(lastClick.x, lastClick.y, x, y);
+			}
+
+			lastClick = { x, y };
+			});
+
+			function createLightning(x1, y1, x2, y2) {
+			const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.style.position = "fixed";
+			svg.style.left = "0";
+			svg.style.top = "0";
+			svg.style.width = "100%";
+			svg.style.height = "100%";
+			svg.style.pointerEvents = "none";
+			svg.style.zIndex = "-1";
+
+			const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+			// create jagged lightning path
+			let d = `M ${x1} ${y1}`;
+			const segments = 10;
+			const dx = x2 - x1;
+			const dy = y2 - y1;
+			const length = Math.hypot(dx, dy);
+
+			const perpX = -dy / length;
+			const perpY = dx / length;
+			for (let i = 1; i < segments; i++) {
+				const t = i / segments;
+				
+				const offset = (Math.random() - 0.5) * 50;
+
+				const x = x1 + dx * t + perpX * offset;
+				const y = y1 + dy * t + perpY * offset;
+				d += ` L ${x} ${y}`;
+			}
+
+			d += ` L ${x2} ${y2}`;
+			
+			path.setAttribute("d", d);
+			path.setAttribute("stroke", "white");
+			path.setAttribute("stroke-width", "2");
+			path.setAttribute("fill", "none");
+
+			path.style.filter = `
+			drop-shadow(0 0 6px #ffe600)
+			drop-shadow(0 0 12px #ffcc33)
+			drop-shadow(0 0 20px rgba(255,255,255,0.9))
+			`;
+			svg.appendChild(path);
+			document.body.appendChild(svg);
+
+			// fade out
+			svg.style.opacity = "1";
+			svg.style.transition = "opacity 0.3s ease-out";
+
+			setTimeout(() => {
+				svg.style.opacity = "0";
+			}, 50);
+
+			setTimeout(() => {
+				svg.remove();
+			}, 350);
+			}
+			</script>
 	</body>
 </html>
 
