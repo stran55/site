@@ -19,12 +19,14 @@
 		-ms-user-select: none;     /* IE/Edge */
 		user-select: none;
 		overflow: hidden !important;
+		overflow-x: hidden !important;
 		height: 100%;
+		padding-top: 30px;
 		}
 
-			#header .major {
-			    padding-top: 150px;
-			}
+		#header .major {
+			padding-top: 100px;
+		}
 		#lensCanvas {
 		position: fixed;
 		top: 50%;
@@ -55,10 +57,10 @@
 		font-size: 40px; /* adjust this */
 		}
 		.dropdown {
-		max-height: 0;
+		height: 0;
 		overflow-x: visible;
 		overflow-y: hidden;
-		transition: max-height 0.5s ease;
+		transition: height 0.5s ease;
 		margin-top: -10px;
 		text-align: left;
 		outline: 0px solid black;
@@ -69,7 +71,7 @@
 		}
 
 		.dropdown.show {
-		max-height: 600px;
+		height: 600px;
 		}
 
 		.dropdown-item {
@@ -132,13 +134,32 @@
 		}
 
 		.arrow.rotate {
-		transform: rotate(180deg);
+		transform: rotate(-180deg);
 		}
 		
 		.dropdown-wrapper {
 		margin-bottom: 10px;  /* pulls Experiments upward only */
 		position: relative;
 		}
+		.misc-button {
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+		}
+
+		/* show on hover */
+		.dropdown-wrapper:hover .misc-button {
+		opacity: 1;
+		pointer-events: auto;
+		}
+
+		/* ALSO stay visible if dropdown is open */
+		.dropdown.show ~ .misc-button,
+		.dropdown-wrapper:has(.dropdown.show) .misc-button {
+		opacity: 1;
+		pointer-events: auto;
+		}
+
 		.centered-title {
 		cursor: pointer;
 		font-size: 36px;
@@ -198,22 +219,22 @@
 		}
 		.click-flash {
 		position: fixed;
-		width: 40px;
-		height: 40px;
+		width: 20px;
+		height: 20px;
 		pointer-events: none;
-		transform: translate(-50%, -50%) scale(0.2);
+		transform: translate(-50%, -50%) scale(4.0);
 
 		background: radial-gradient(circle at center,
 			rgba(255, 255, 255, 0.9) 0%, 
-			rgba(255, 239, 120, 0.8) 10%, 
-			rgba(255, 208, 0, 0.6) 25%, 
-			rgba(250, 199, 104, 0.3) 50%,
+			rgba(240, 251, 255, 0.777) 10%,
+			rgba(246, 243, 243, 0.785) 25%, 
+			rgba(113, 184, 255, 0.4) 50%,
 			transparent 70%
 			);
 
 		opacity: 1;
 		  animation: expand 0.1s ease-out forwards,
-             fade 0.9s ease-out forwards;
+             fade 0.5s ease-out forwards;
 
 		}
 
@@ -246,10 +267,10 @@
 			<section id="header">
 				<header class="major">
 					
-						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 64px;">S. Tran</h1>
+						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 56px;">S. Tran</h1>
 
 						<h2 class="continue-text" onclick="goToMain()">
-							Continue <i class="fas fa-right-long"></i> 
+							Continue <i class="fa-solid fa-right-to-bracket"></i>
 						</h2>
 
 					<!--<p style="font-family: 'Orbitron', sans-serif; color: white;">Seek Higher Things</a></p> -->
@@ -331,7 +352,7 @@
 								<h2 onclick="toggleDropdown('projectsDropdown', this)" 
 									class="centered-title grow-smooth" 
 									style="font-family: 'Orbitron', sans-serif;">
-									Projects <i class="fas fa-chevron-down arrow"></i>
+									Projects<i class="fas fa-chevron-down arrow"></i>
 								</h2>
 								<div id="projectPreview" class="preview-box">
 									<img id="previewImg" src="" alt="">
@@ -358,16 +379,31 @@
 
 							</div>
 							
-							<a href="ring_simulation.html">
+							<!--<a href="ring_simulation.html">
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif;">Lensing Sim</h2>
-							</a>
+							</a>-->
 							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
-							<h2 class="centered-title grow-smooth">Resume <span style="margin-left: 10px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
+							<h2 class="centered-title grow-smooth">View Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
 							</a>
 							<a href="index.html" class="exit-button" onclick="goBack(event)">
-								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; "><i class="fas fa-left-long"></i>
-									<span style="margin-right: 30px; margin-left: 10px">Return</span></h2>
+								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; ">
+									<span style="margin-right: 4px; margin-left: 0px">Return </span><i class="fa-solid fa-right-from-bracket"></i></h2>
 							</a>
+							<br><br>
+							<div class="dropdown-wrapper">
+
+								<h2 onclick="toggleDropdown('miscDropdown', this)" 
+									class="centered-title grow-smooth misc-button" 
+									style="font-family: 'Orbitron', sans-serif;">
+									Extra<i class="fas fa-chevron-down arrow"></i>
+								</h2>
+								<div id="miscDropdown" class="dropdown">
+										<a href="ring_simulation.html">
+										<h3 class="dropdown-item"><span class="item-text">Lensing</h3>
+										</a>
+								</div>
+
+							</div>
 						</header>
 						<p style="font-family: 'Orbitron', sans-serif; color: white;"></p></p>
 					</div>
@@ -745,13 +781,19 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			const dropdown = document.getElementById(id);
 			const isOpen = dropdown.classList.contains("show");
 
-			// close all dropdowns first
-			document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
+			// close all
+			document.querySelectorAll(".dropdown").forEach(d => {
+				d.style.height = "0px";
+				d.classList.remove("show");
+			});
+
 			document.querySelectorAll(".arrow").forEach(a => a.classList.remove("rotate"));
 
-			// reopen if it wasn't already open
 			if (!isOpen) {
 				dropdown.classList.add("show");
+
+				// 🔥 KEY: dynamic height
+				dropdown.style.height = dropdown.scrollHeight + "px";
 
 				const icon = el.querySelector(".arrow");
 				if (icon) icon.classList.add("rotate");
@@ -760,9 +802,16 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 			// click outside to close
 			document.addEventListener("click", function(e) {
-			if (!e.target.closest(".centered-title") && !e.target.closest(".dropdown")) {
-				document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
-				document.querySelectorAll(".arrow").forEach(a => a.classList.remove("rotate"));
+
+			if (!e.target.closest(".dropdown-wrapper")) {
+				document.querySelectorAll(".dropdown").forEach(d => {
+				d.classList.remove("show");
+				d.style.height = "0px"; // 🔥 needed for your height system
+				});
+
+				document.querySelectorAll(".arrow").forEach(a => {
+				a.classList.remove("rotate");
+				});
 			}
 			});
 			</script>
@@ -945,7 +994,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			for (let i = 1; i < segments; i++) {
 				const t = i / segments;
 				
-				const offset = (Math.random() - 0.5) * 50;
+				const offset = (Math.random() - 0.5) * 40;
 
 				const x = x1 + dx * t + perpX * offset;
 				const y = y1 + dy * t + perpY * offset;
@@ -956,13 +1005,19 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			
 			path.setAttribute("d", d);
 			path.setAttribute("stroke", "white");
-			path.setAttribute("stroke-width", "2");
+			path.setAttribute("stroke-width", length/300 + 1);
 			path.setAttribute("fill", "none");
 
-			path.style.filter = `
+			/*path.style.filter = `
 			drop-shadow(0 0 6px #ffe600)
 			drop-shadow(0 0 12px #ffcc33)
 			drop-shadow(0 0 20px rgba(255,255,255,0.9))
+			`;*/
+
+			path.style.filter = `
+			drop-shadow(0 0 6px #7a5cff)
+			drop-shadow(0 0 12px #5ce1ff)
+			drop-shadow(0 0 20px rgba(180, 150, 255, 0.9))
 			`;
 			svg.appendChild(path);
 			document.body.appendChild(svg);
