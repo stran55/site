@@ -54,7 +54,16 @@
 		pointer-events: none;
 		}
 		.continue-text {
-		font-size: 40px; /* adjust this */
+		font-size: 40px;
+		transition: transform 0.1s ease;
+		cursor: pointer;
+		}
+		.continue-text:hover {
+		transform: scale(1.05);
+		}
+
+		.continue-text:active {
+		transform: scale(0.95);
 		}
 		.dropdown {
 		height: 0;
@@ -102,7 +111,9 @@
 		.dropdown-item {
 		position: relative;
 		}
-
+		.dropdown a:active .item-text {
+		transform: scale(0.97) !important;
+		}
 
 		.dropdown a:hover .dropdown-item::before {
 		border-left-color: white;
@@ -111,7 +122,7 @@
 		}
 		.item-text {
 		display: inline-block;
-		transition: transform 0.3s ease, text-shadow 0.3s ease;
+		transition: transform 0.1s ease, text-shadow 0.3s ease;
 		}
 
 		.dropdown a:hover .item-text {
@@ -163,7 +174,22 @@
 		.centered-title {
 		cursor: pointer;
 		font-size: 36px;
+		transition: transform 0.1s ease;
 		}
+		.centered-title:active {
+		transform: scale(0.95);
+		}
+		/* click pop animation */
+		.click-pop {
+		animation: clickPop 0.2s cubic-bezier(0.2, 1.5, 0.4, 1);
+		}
+
+		@keyframes clickPop {
+		0%   { transform: scale(0.92); }  /* pressed */
+		40%  { transform: scale(1.2); }   /* overshoot */
+		100% { transform: scale(1.05); }  /* settles to hover size */
+		}
+
 		.preview-box {
 		position: absolute;
 		right: -20vw;  
@@ -251,6 +277,12 @@
 		100% {
 			opacity: 0;
 		}
+		}
+		.lightning-active {
+		text-shadow:
+			0 0 10px white,
+			0 0 25px #7a5cff,
+			0 0 40px #5ce1ff;
 		}
 		</style>
 	</head>
@@ -383,7 +415,7 @@
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif;">Lensing Sim</h2>
 							</a>-->
 							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
-							<h2 class="centered-title grow-smooth">View Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
+							<h2 class="centered-title grow-smooth">Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
 							</a>
 							<a href="index.html" class="exit-button" onclick="goBack(event)">
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; ">
@@ -1034,6 +1066,20 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				svg.remove();
 			}, 350);
 			}
+			</script>
+			<script>
+				document.querySelectorAll(".dropdown a").forEach(link => {
+				link.addEventListener("click", function(e) {
+					e.preventDefault();
+
+					document.body.style.transition = "opacity 0.3s ease";
+					document.body.style.opacity = 0;
+
+					setTimeout(() => {
+					window.location.href = this.href;
+					}, 150);
+				});
+				});
 			</script>
 	</body>
 </html>
