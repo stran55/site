@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Oscilloscope</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    .header {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-size: 48px;
+    color: white;
+    text-shadow: 0 0 1px #f44703;
+  }
+    body {
+      margin: 0;
+      background: black;
+      color: #00ff88;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      overflow-x: hidden !important;
+    }
+
+    body.fade-in {
+      opacity: 1;
+    }
+
+    .title {
+      margin-top: px;
+      font-size: 48px;
+    }
+
+    canvas {
+      margin-top: 40px;
+      background: black;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ff88;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .control-block {
+      width: 150px;
+      padding: 10px;
+      border: 0px solid #00ff88;
+      border-radius: 8px;
+      box-shadow: 0 0 0px #00ff88;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .control-block button {
+      display: inline-flex;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 14px;
+      background: black;
+      color: #00ff88;
+      border: 1px solid #00ff88;
+      border-radius: 6px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    button i {
+    width: 1em;          /* same width for all icons */
+    text-align: center;  /* center inside that box */
+  }
+    .button-row {
+      display: flex;
+      gap: 8px;
+    }
+    button:hover {
+      box-shadow: 0 0 10px #00ff88;
+    }
+    .label {
+      font-size: 22px;   /* adjust this */
+      margin-bottom: 6px;
+    }
+    .display {
+      margin-top: 5px;
+      font-size: 30px;
+      color: #88ffaa;
+      text-shadow: 0 0 6px #00ff88;
+    }
+    #blackOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 9999;
+    }
+
+    .return {
+      margin-top: 50px;
+      font-size: 32px;
+      cursor: pointer;
+      transition: transform 0.2s ease, text-shadow 0.3s ease;
+    }
+
+    .return:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 12px #ff6600;
+    }
+  </style>
+</head>
+
+<body>
+<h1 class="header">OSC Signal</h1>
+
+<canvas id="scopeCanvas" width="900" height="400"></canvas>
+
+<div class="controls">
+
+  <div class="control-block">
+    <div class="label">Time/Div</div>
+    <div class="button-row">
+    <button onclick="incTime()"><i class="fa-solid fa-plus"></i></button>
+    <button onclick="decTime()"><i class="fa-solid fa-minus"></i></button>
+    </div>
+    <div class="display" id="timeDisplay"></div>
+  </div>
+
+  <div class="control-block">
+    <div class="label">Volts/Div</div>
+    <div class="button-row">
+    <button onclick="incVolt()"><i class="fa-solid fa-plus"></i></button>
+    <button onclick="decVolt()"><i class="fa-solid fa-minus"></i></button>
+    </div>
+    <div class="display" id="voltDisplay"></div>
+    
+  </div>
+  
+  <div class="control-block">
+    <div class="label">Speed</div>
+    <div class="button-row">
+  <button onclick="incSpeed()"><i class="fa-solid fa-plus"></i></button>
+  <button onclick="decSpeed()"><i class="fa-solid fa-minus"></i></button>
+  </div>
+  <div class="display" id="speedDisplay"></div>
+  </div>
+  
+
+</div>
+
+<div class="controls">
+
+  
+  <div class="control-block">
+    <div class="label">Wave</div>
+    <div class="button-row">
+    <button onclick="prevWave()"><i class="fa-solid fa-arrow-left"></i></button>
+    <button onclick="nextWave()"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    <div class="display" id="waveDisplay"></div>
+  </div>
+  <div class="control-block">
+    <div class="label">Frequency</div>
+    <div class="button-row">
+  <button onclick="incFreq()"><i class="fa-solid fa-plus"></i></button>
+  <button onclick="decFreq()"><i class="fa-solid fa-minus"></i></button>
+  </div>
+  <div class="display" id="freqDisplay"></div>
+  </div>
+
+  <div class="control-block">
+  <div class="label">Amplitude</div>
+  <div class="button-row">
+    <button onclick="incAmp()"><i class="fa-solid fa-plus"></i></button>
+    <button onclick="decAmp()"><i class="fa-solid fa-minus"></i></button>
+  </div>
+  <div class="display" id="ampDisplay"></div>
+</div>
+
+</div>
+
+<div class="controls">
+      <div class="control-block">
+      <div class="label">Playback</div>
+  <button onclick="togglePause()"><i id="pauseIcon" class="fa-solid fa-pause"></i></button>
+  <div class="display" id="pauseDisplay"></div>
+  </div>
+
+  <div class="control-block">
+    <div class="label">Display</div>
+    <div class="button-row">
+      <button onclick="toggleWave(0)"><i class="fa-solid fa-1"></i></button>
+      <button onclick="toggleWave(1)"><i class="fa-solid fa-2"></i></button>
+    </div>
+    <div class="display" id="showingDisplay"></div>
+  </div>
+
+  <div class="control-block">
+    <div class="label">Edit Wave</div>
+    <div class="button-row">
+      <button onclick="setActive(0)"><i class="fa-solid fa-1"></i></button>
+      <button onclick="setActive(1)"><i class="fa-solid fa-2"></i></button>
+    </div>
+    <div class="display" id="activeDisplay"></div>
+  </div>
+
+</div>
+<script>
+const canvas = document.getElementById("scopeCanvas");
+const ctx = canvas.getContext("2d");
+
+const gridPx = 50;
+
+let paused = false;
+
+
+let waves = [
+  { amp: 1, freq: 1, visible: true, type: "Sine" },
+  { amp: 1, freq: 1, visible: false, type: "Square" }
+];
+
+let activeWave = 0;
+
+
+const timeSteps = [
+  0.001, 0.002, 0.005,
+  0.01, 0.02, 0.05,
+  0.1, 0.2, 0.5,
+  1, 2, 5
+];
+let timeIndex = 8;
+let timePerDiv = timeSteps[timeIndex];
+
+
+const voltSteps = [0.1, 0.2, 0.5, 1, 2, 5];
+let voltIndex = 3;
+let voltsPerDiv = voltSteps[voltIndex];
+
+const freqSteps = [
+  0.1, 0.2, 0.5,
+  1, 2, 5,
+  10, 20, 50,
+  100, 200, 500
+];
+let freqIndex = 3;
+
+
+const speedSteps = [0.12, 0.25, 0.5, 1, 2, 4, 8];
+let speedIndex = 3;
+let sweepSpeed = speedSteps[speedIndex];
+
+
+const waveTypes = ["Sine", "Square", "Triangle", "Sawtooth"];
+let waveIndex = 0;
+waves[activeWave].type = waveTypes[waveIndex];
+
+const ampSteps = [0.1, 0.2, 0.5, 1, 2, 5];
+let ampIndex = 3; 
+
+function incFreq() {
+  if (freqIndex < freqSteps.length - 1) {
+    freqIndex++;
+  waves[activeWave].freq = freqSteps[freqIndex];
+    updateDisplay();
+  }
+}
+
+function decFreq() {
+  if (freqIndex > 0) {
+    freqIndex--;
+    waves[activeWave].freq = freqSteps[freqIndex];
+    updateDisplay();
+  }
+}
+
+function incSpeed() {
+  if (speedIndex < speedSteps.length - 1) {
+    speedIndex++;
+    sweepSpeed = speedSteps[speedIndex];
+    updateDisplay();
+  }
+}
+
+function decSpeed() {
+  if (speedIndex > 0) {
+    speedIndex--;
+    sweepSpeed = speedSteps[speedIndex];
+    updateDisplay();
+  }
+}
+
+function nextWave() {
+  waveIndex = (waveIndex + 1) % waveTypes.length;
+  waves[activeWave].type = waveTypes[waveIndex];
+  updateDisplay();
+}
+
+function prevWave() {
+  waveIndex = (waveIndex - 1 + waveTypes.length) % waveTypes.length;
+  waves[activeWave].type = waveTypes[waveIndex];
+  updateDisplay();
+}
+
+
+function toggleWave(i) {
+  waves[i].visible = !waves[i].visible;
+  updateDisplay();
+}
+
+function setActive(i) {
+  activeWave = i;
+  updateDisplay();
+}
+
+
+function incTime() {
+  if (timeIndex < timeSteps.length - 1) {
+    timeIndex++;
+    timePerDiv = timeSteps[timeIndex];
+    updateDisplay();
+  }
+}
+
+function decTime() {
+  if (timeIndex > 0) {
+    timeIndex--;
+    timePerDiv = timeSteps[timeIndex];
+    updateDisplay();
+  }
+}
+
+
+function incVolt() {
+  if (voltIndex < voltSteps.length - 1) {
+    voltIndex++;
+    voltsPerDiv = voltSteps[voltIndex];
+    updateDisplay();
+  }
+}
+
+function decVolt() {
+  if (voltIndex > 0) {
+    voltIndex--;
+    voltsPerDiv = voltSteps[voltIndex];
+    updateDisplay();
+  }
+}
+
+function incAmp() {
+  if (ampIndex < ampSteps.length - 1) {
+    ampIndex++;
+    waves[activeWave].amp = ampSteps[ampIndex];
+    updateDisplay();
+  }
+}
+
+function decAmp() {
+  if (ampIndex > 0) {
+    ampIndex--;
+    waves[activeWave].amp = ampSteps[ampIndex];
+    updateDisplay();
+  }
+}
+
+function setActive(i) {
+  activeWave = i;
+
+  waveIndex = waveTypes.indexOf(waves[activeWave].type);
+  ampIndex = ampSteps.indexOf(waves[activeWave].amp);
+
+  updateDisplay();
+}
+
+function togglePause() {
+  paused = !paused;
+
+  const icon = document.getElementById("pauseIcon");
+
+  if (paused) {
+    icon.classList.replace("fa-pause", "fa-play");
+  } else {
+    icon.classList.replace("fa-play", "fa-pause");
+  }
+
+  updateDisplay();
+}
+
+
+function drawGrid() {
+  ctx.save();
+
+  ctx.strokeStyle = "#113322";
+  ctx.lineWidth = 1;
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = "transparent";
+
+  for (let x = 0; x < canvas.width; x += gridPx) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+
+  for (let y = 0; y < canvas.height; y += gridPx) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
+
+let time = 0;
+
+function getWaveValue(type, freq, t) {
+  switch (type) {
+    case "Sine":
+      return Math.sin(2 * Math.PI * freq * t);
+
+    case "Square":
+      return Math.sign(Math.sin(2 * Math.PI * freq * t));
+
+    case "Triangle":
+      return 2 * Math.asin(Math.sin(2 * Math.PI * freq * t)) / Math.PI;
+
+    case "Sawtooth":
+      return 2 * (t * freq - Math.floor(t * freq + 0.5));
+  }
+}
+
+function drawWave() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGrid();
+
+  waves.forEach((wave, i) => {
+    if (!wave.visible) return;
+
+    ctx.beginPath();
+
+    for (let x = 0; x < canvas.width; x++) {
+      let t = time + (x / gridPx) * timePerDiv;
+
+      let y = wave.amp * getWaveValue(wave.type, wave.freq, t)
+
+      let yPos = canvas.height / 2 - (y / voltsPerDiv) * gridPx;
+
+      if (x === 0) ctx.moveTo(x, yPos);
+      else ctx.lineTo(x, yPos);
+    }
+
+    ctx.strokeStyle = i === 0 ? "#00ff88" : "#00ff88";
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = ctx.strokeStyle;
+    ctx.stroke();
+  });
+
+  if (!paused) {
+    time += (0.01 / timePerDiv) * sweepSpeed;
+  }
+
+  requestAnimationFrame(drawWave);
+}
+
+function updateDisplay() {
+  document.getElementById("timeDisplay").textContent = timePerDiv + " s";
+  document.getElementById("voltDisplay").textContent = voltsPerDiv + " V";
+  document.getElementById("freqDisplay").textContent =
+    waves[activeWave].freq + " Hz";
+  document.getElementById("speedDisplay").textContent = sweepSpeed + "x";
+  document.getElementById("pauseDisplay").textContent =
+    paused ? "Paused" : "Running";
+  document.getElementById("waveDisplay").textContent =
+  waves[activeWave].type;
+
+  let showingText;
+  if (waves[0].visible && waves[1].visible) {
+    showingText = "1 & 2";
+  } else if (waves[0].visible) {
+    showingText = "Wave 1";
+  } else if (waves[1].visible) {
+    showingText = "Wave 2";
+  } else {
+    showingText = "None";
+  }
+  document.getElementById("showingDisplay").textContent =
+    /*"Showing: " + */showingText;
+  document.getElementById("activeDisplay").textContent =
+    "Editing: " + (activeWave + 1);
+  document.getElementById("ampDisplay").textContent =
+  waves[activeWave].amp + " V";
+}
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.body.classList.add('fade-in');
+  }, 300);
+});
+
+updateDisplay();
+drawWave();
+</script>
+
+  <a href="#" onclick="fadeAndRedirect('index.html#three'); return false;" style="text-decoration: none; color: white;">
+  <h2 class="return">
+    <span style="margin-left: 10px; margin-right: 6px">Return</span>
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </h2>
+</a>
+</body>
+<div id="blackOverlay"></div>
+<script>
+  function fadeAndRedirect(url) {
+    const overlay = document.getElementById("blackOverlay");
+    overlay.style.opacity = "1";
+    overlay.style.pointerEvents = "auto";
+
+    setTimeout(() => {
+      window.location.href = url;
+    }, 150); 
+  }
+</script>
+
+</html>
