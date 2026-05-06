@@ -14,9 +14,9 @@
 	  
 		<style>
 		html, body {
-		-webkit-user-select: none; /* Chrome, Safari */
-		-moz-user-select: none;    /* Firefox */
-		-ms-user-select: none;     /* IE/Edge */
+		-webkit-user-select: none; 
+		-moz-user-select: none; 
+		-ms-user-select: none; 
 		user-select: none;
 		overflow: hidden !important;
 		overflow-x: hidden !important;
@@ -33,7 +33,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		height: 3000px;
-		border: 2px solid rgb(0, 0, 0); /* optional for visibility */
+		border: 2px solid rgb(0, 0, 0); 
 		z-index: -1;
 		}
 		
@@ -74,7 +74,7 @@
 		text-align: left;
 		outline: 0px solid black;
 		width: 600px;
-		position: relative;    /* or absolute if needed */
+		position: relative; 
 		left: 50%;
 		transform: translateX(-50%);
 		}
@@ -97,9 +97,9 @@
 		padding-left: 100px;
 		}
 		.dropdown-item::before {
-		content: "▶";  /* triangle */
+		content: "▶"; 
 		position: absolute;
-		left: 20px;   /* distance from text */
+		left: 20px; 
 		top: 50%;
 		transform: translateY(-50%);
 
@@ -149,7 +149,7 @@
 		}
 		
 		.dropdown-wrapper {
-		margin-bottom: 10px;  /* pulls Experiments upward only */
+		margin-bottom: 10px;  
 		position: relative;
 		}
 		.misc-button {
@@ -158,13 +158,11 @@
 		transition: opacity 0.3s ease;
 		}
 
-		/* show on hover */
 		.dropdown-wrapper:hover .misc-button {
 		opacity: 1;
 		pointer-events: auto;
 		}
 
-		/* ALSO stay visible if dropdown is open */
 		.dropdown.show ~ .misc-button,
 		.dropdown-wrapper:has(.dropdown.show) .misc-button {
 		opacity: 1;
@@ -179,15 +177,15 @@
 		.centered-title:active {
 		transform: scale(0.95);
 		}
-		/* click pop animation */
+
 		.click-pop {
 		animation: clickPop 0.2s cubic-bezier(0.2, 1.5, 0.4, 1);
 		}
 
 		@keyframes clickPop {
-		0%   { transform: scale(0.92); }  /* pressed */
-		40%  { transform: scale(1.2); }   /* overshoot */
-		100% { transform: scale(1.05); }  /* settles to hover size */
+		0%   { transform: scale(0.92); } 
+		40%  { transform: scale(1.2); } 
+		100% { transform: scale(1.05); } 
 		}
 
 		.preview-box {
@@ -295,7 +293,7 @@
 		Your browser does not support the video tag.
 		</video>
 
-		<!-- Header -->
+
 			<section id="header">
 				<header class="major">
 					
@@ -371,14 +369,11 @@
 		<!-- Three -->
 			<section id="three" class="main special">
 				<div class="container">
-					<!--<span class="image fit primary"><img src="images/lighthouse_4k.png" alt="" /></span>-->
+
 					<div class="content" >
 						<header class="major">
 							<h2 style="font-family: 'Orbitron', sans-serif;"></h2>
 							
-							<!--<a href="#one">
-								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif;">About Me</h2>
-							  </a>-->
 							<div class="dropdown-wrapper">
 
 								<h2 onclick="toggleDropdown('projectsDropdown', this)" 
@@ -411,9 +406,6 @@
 
 							</div>
 							
-							<!--<a href="ring_simulation.html">
-								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif;">Lensing Sim</h2>
-							</a>-->
 							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
 							<h2 class="centered-title grow-smooth">Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
 							</a>
@@ -433,365 +425,19 @@
 										<a href="ring_simulation.html">
 										<h3 class="dropdown-item"><span class="item-text">Lensing</h3>
 										</a>
+										<a href="reaction.html">
+										<h3 class="dropdown-item"><span class="item-text">Signal</h3>
+										</a>
 								</div>
 
 							</div>
 						</header>
 						<p style="font-family: 'Orbitron', sans-serif; color: white;"></p></p>
 					</div>
-					<!--<a href="#footer" class="goto-next scrolly">Next</a>-->
+
 				</div>
 			</section>
 
-		<!-- Four -->
-		<!--
-			<section id="four" class="main">
-				<div class="container">
-					<div class="content">
-						<header class="major">
-							<h2>Elements</h2>
-						</header>
-						<section>
-							<h4>Text</h4>
-							<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-							This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-							This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-							<hr />
-							<header>
-								<h4>Heading with a Subtitle</h4>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<header>
-								<h5>Heading with a Subtitle</h5>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<hr />
-							<h2>Heading Level 2</h2>
-							<h3>Heading Level 3</h3>
-							<h4>Heading Level 4</h4>
-							<h5>Heading Level 5</h5>
-							<h6>Heading Level 6</h6>
-							<hr />
-							<h5>Blockquote</h5>
-							<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-							<h5>Preformatted</h5>
-							<pre><code>i = 0;
-
-while (!deck.isInOrder()) {
-  print 'Iteration ' + i;
-  deck.shuffle();
-  i++;
-}
-
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-						</section>
-
-						<section>
-							<h4>Lists</h4>
-							<div class="row">
-								<div class="col-6 col-12-medium">
-									<h5>Unordered</h5>
-									<ul>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
-									<h5>Alternate</h5>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-medium">
-									<h5>Ordered</h5>
-									<ol>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis viverra.</li>
-										<li>Felis enim feugiat.</li>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis lorem.</li>
-										<li>Felis enim et feugiat.</li>
-									</ol>
-									<h5>Icons</h5>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									</ul>
-								</div>
-							</div>
-							<h5>Actions</h5>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Default</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions small">
-								<li><a href="#" class="button primary small">Small</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<div class="row">
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small">Small</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary fit">Default</a></li>
-										<li><a href="#" class="button fit">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small fit">Small</a></li>
-										<li><a href="#" class="button small fit">Small</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-
-						<section>
-							<h4>Table</h4>
-							<h5>Default</h5>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-
-							<h5>Alternate</h5>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</section>
-
-						<section>
-							<h4>Buttons</h4>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Primary</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button">Default</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<ul class="actions fit">
-								<li><a href="#" class="button primary fit">Fit</a></li>
-								<li><a href="#" class="button fit">Fit</a></li>
-							</ul>
-							<ul class="actions fit small">
-								<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-								<li><a href="#" class="button fit small">Fit + Small</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-								<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-							</ul>
-							<ul class="actions">
-								<li><span class="button primary disabled">Disabled</span></li>
-								<li><span class="button disabled">Disabled</span></li>
-							</ul>
-						</section>
-
-						<section>
-							<h4>Form</h4>
-							<form method="post" action="#">
-								<div class="row gtr-uniform">
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-									</div>
-									<div class="col-12">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Category -</option>
-											<option value="1">Manufacturing</option>
-											<option value="1">Shipping</option>
-											<option value="1">Administration</option>
-											<option value="1">Human Resources</option>
-										</select>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-										<label for="demo-priority-low">Low</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-normal" name="demo-priority">
-										<label for="demo-priority-normal">Normal</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-high" name="demo-priority">
-										<label for="demo-priority-high">High</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-copy" name="demo-copy">
-										<label for="demo-copy">Email me a copy</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-human" name="demo-human" checked>
-										<label for="demo-human">Not a robot</label>
-									</div>
-									<div class="col-12">
-										<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-									</div>
-									<div class="col-12">
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-
-						<section>
-							<h4>Image</h4>
-							<h5>Fit</h5>
-							<div class="box alt">
-								<div class="row gtr-uniform gtr-50">
-									<div class="col-12"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-								</div>
-							</div>
-							<h5>Left &amp; Right</h5>
-							<p><span class="image left"><img src="images/pic05.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-							<p><span class="image right"><img src="images/pic05.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-						</section>
-
-					</div>
-					<a href="#footer" class="goto-next scrolly">Next</a>
-				</div>
-			</section>
-		-->
-
-		<!-- Footer 
-			<section class="main dark-footer">
-				<div class="container">
-					<header class="major">
-						<h2 style="font-family: 'Orbitron', sans-serif;">Send me a message</h2>
-					</header>
-					<form method="post" action="#">
-						<div class="row gtr-uniform">
-							<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-							<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-							<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-							<div class="col-12">
-								<ul class="actions special">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div>
-				<footer>
-					<ul class="icons">
-					</ul>
-					
-				</footer>
-			</section>-->
-
-		<!-- Scripts -->
-			<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -800,7 +446,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-			<!-- Your script -->
 			<script src="ring.js"></script>
 			<script src="beam.js"></script>
 			<script>
@@ -813,7 +458,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			const dropdown = document.getElementById(id);
 			const isOpen = dropdown.classList.contains("show");
 
-			// close all
 			document.querySelectorAll(".dropdown").forEach(d => {
 				d.style.height = "0px";
 				d.classList.remove("show");
@@ -824,7 +468,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			if (!isOpen) {
 				dropdown.classList.add("show");
 
-				// 🔥 KEY: dynamic height
 				dropdown.style.height = dropdown.scrollHeight + "px";
 
 				const icon = el.querySelector(".arrow");
@@ -832,13 +475,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			}
 			}
 
-			// click outside to close
 			document.addEventListener("click", function(e) {
 
 			if (!e.target.closest(".dropdown-wrapper")) {
 				document.querySelectorAll(".dropdown").forEach(d => {
 				d.classList.remove("show");
-				d.style.height = "0px"; // 🔥 needed for your height system
+				d.style.height = "0px"; 
 				});
 
 				document.querySelectorAll(".arrow").forEach(a => {
@@ -882,10 +524,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				const data = projectData[item.textContent.trim()];
 				if (!data) return;
 
-				// cancel any previous animation
 				clearTimeout(hoverTimeout);
 
-				// fade out + move left
 				preview.style.opacity = 0;
 				preview.style.transform = "translateX(-20px)";
 
@@ -893,11 +533,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				img.src = data.img;
 				text.textContent = data.text;
 
-				// start from right
 				preview.style.transform = "translateX(20px)";
 				preview.offsetHeight;
 
-				// animate in
 				preview.style.opacity = 1;
 				preview.style.transform = "translateX(0)";
 				}, 100);
@@ -917,7 +555,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			const header = document.getElementById("header");
 			const main = document.getElementById("three");
 
-			// expansion with smooth easing
 			flash.style.transition = "background-size 0.10s cubic-bezier(0.2, 1, 0.3, 1)";
 			flash.style.backgroundSize = "300% 300%";
 			
@@ -967,15 +604,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			const x = e.clientX;
 			const y = e.clientY;
 
-			// lightning only if recent click exists
 			if (lastClick) {
 				createLightning(lastClick.x, lastClick.y, x, y);
 			}
 
-			// update last click
 			lastClick = { x, y };
 
-			// reset timer
 			clearTimeout(lastClickTimer);
 			lastClickTimer = setTimeout(() => {
 				lastClick = null;
@@ -986,7 +620,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			const x = e.clientX;
 			const y = e.clientY;
 
-			// your existing flash
 			const flash = document.createElement("span");
 			flash.className = "click-flash";
 			flash.style.left = x + "px";
@@ -994,7 +627,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			document.body.appendChild(flash);
 			flash.addEventListener("animationend", () => flash.remove());
 
-			// lightning if previous click exists
 			if (lastClick) {
 				createLightning(lastClick.x, lastClick.y, x, y);
 			}
@@ -1014,7 +646,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 			const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-			// create jagged lightning path
 			let d = `M ${x1} ${y1}`;
 			const segments = 10;
 			const dx = x2 - x1;
@@ -1040,12 +671,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			path.setAttribute("stroke-width", length/300 + 1);
 			path.setAttribute("fill", "none");
 
-			/*path.style.filter = `
-			drop-shadow(0 0 6px #ffe600)
-			drop-shadow(0 0 12px #ffcc33)
-			drop-shadow(0 0 20px rgba(255,255,255,0.9))
-			`;*/
-
 			path.style.filter = `
 			drop-shadow(0 0 6px #7a5cff)
 			drop-shadow(0 0 12px #5ce1ff)
@@ -1054,7 +679,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			svg.appendChild(path);
 			document.body.appendChild(svg);
 
-			// fade out
 			svg.style.opacity = "1";
 			svg.style.transition = "opacity 0.3s ease-out";
 
