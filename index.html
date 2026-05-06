@@ -26,7 +26,7 @@
 		}
 
 		#header .major {
-			padding-top: 100px;
+			padding-top: 0px;
 		}
 		#lensCanvas {
 		position: fixed;
@@ -73,7 +73,7 @@
 		transition: height 0.5s ease;
 		margin-top: -10px;
 		text-align: left;
-		outline: 0px solid black;
+		outline: none;
 		width: 600px;
 		position: relative; 
 		left: 50%;
@@ -82,6 +82,7 @@
 
 		.dropdown.show {
 		height: 600px;
+		outline: 1px solid #ffc76c;
 		}
 
 		.dropdown-item {
@@ -139,7 +140,7 @@
 		border-bottom: none !important;
 		}
 
-		
+
 		.arrow {
 		margin-left: 10px;
 		transition: transform 0.3s ease;
@@ -298,7 +299,9 @@
 			<section id="header">
 				<header class="major">
 					
-						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 56px;">S. Tran</h1>
+						<h1 style="font-family: 'Orbitron', sans-serif; font-size: 56px; padding-top: 100px;">
+						S. Tran
+						</h1>
 
 						<h2 class="continue-text" onclick="goToMain()">
 							Continue <i class="fa-solid fa-right-to-bracket"></i>
@@ -369,8 +372,9 @@
 
 		<!-- Three -->
 			<section id="three" class="main special">
+				
 				<div class="container">
-
+						
 					<div class="content" >
 						<header class="major">
 							<h2 style="font-family: 'Orbitron', sans-serif;"></h2>
@@ -384,9 +388,10 @@
 								</h2>
 								<div id="projectPreview" class="preview-box">
 									<img id="previewImg" src="" alt="">
-									<p id="previewText"></p>
-									
+									<p id="previewText"></p>									
 								</div>
+							
+							
 								<div id="projectsDropdown" class="dropdown">
 										<a href="project1_schlieren.html">
 										<h3 class="dropdown-item"><span class="item-text">Schlieren Imaging System</span></h3>
@@ -404,25 +409,17 @@
 										<h3 class="dropdown-item"><span class="item-text">Faraday Rotation</span></h3>
 										</a>
 								</div>
-
 							</div>
-							
 							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
 							<h2 class="centered-title grow-smooth">Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
 							</a>
-							<a href="index.html" class="exit-button" onclick="goBack(event)">
-								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; ">
-									<span style="margin-right: 4px; margin-left: 0px">Return </span><i class="fa-solid fa-right-from-bracket"></i></h2>
-							</a>
-							<br><br>
 							<div class="dropdown-wrapper">
-
-								<h2 onclick="toggleDropdown('miscDropdown', this)" 
-									class="centered-title grow-smooth misc-button" 
-									style="font-family: 'Orbitron', sans-serif;">
-									Extra<i class="fas fa-chevron-down arrow"></i>
+								<h2 onclick="toggleDropdown('sandboxDropdown', this)" 
+									class="centered-title grow-smooth" 
+									style="font-family: 'Orbitron', sans-serif; margin-top: 10px">
+									Sandbox<i class="fas fa-chevron-down arrow"></i>
 								</h2>
-								<div id="miscDropdown" class="dropdown">
+								<div id="sandboxDropdown" class="dropdown">
 										<a href="ring_simulation.html">
 										<h3 class="dropdown-item"><span class="item-text">Lensing</h3>
 										</a>
@@ -430,8 +427,15 @@
 										<h3 class="dropdown-item"><span class="item-text">Signal</h3>
 										</a>
 								</div>
-
 							</div>
+							
+							<div style="height: 0px;"></div>
+							<a href="index.html" class="exit-button" onclick="goBack(event)">
+								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; ">
+									<span style="margin-right: 4px; margin-left: 0px">Return </span><i class="fa-solid fa-right-from-bracket"></i></h2>
+							</a>
+							
+
 						</header>
 						<p style="font-family: 'Orbitron', sans-serif; color: white;"></p></p>
 					</div>
