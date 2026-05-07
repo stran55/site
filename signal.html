@@ -27,9 +27,6 @@
       overflow-x: hidden !important;
     }
 
-    body.fade-in {
-      opacity: 1;
-    }
 
     .title {
       margin-top: px;
@@ -223,7 +220,7 @@
   </style>
 </head>
 
-<body>
+<body style="opacity:0;">
 <h1 class="header">Signal Scope</h1>
 
 <canvas id="scopeCanvas" width="900" height="400"></canvas>
@@ -840,15 +837,25 @@ drawWave();
       window.location.href = url;
     }, 250); 
   }
+
+  window.addEventListener("load", () => {
+
+    requestAnimationFrame(() => {
+
+      requestAnimationFrame(() => {
+
+        document.body.style.transition =
+          "opacity 1s ease";
+
+        document.body.style.opacity = "1";
+
+      });
+
+    });
+
+  });
 </script>
 
-<script>
-window.onload = () => {
-  setTimeout(() => {
-    document.body.classList.add("fade-in");
-  }, 500);
-};
-</script>
 
 
 </html>

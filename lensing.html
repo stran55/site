@@ -45,11 +45,6 @@ body {
     background: black;
 }
 
-body.fade-in {
-
-    opacity: 1;
-}
-
 #blackOverlay {
 
     position: fixed;
@@ -541,7 +536,7 @@ input[type="range"]::-webkit-slider-thumb {
 </style>
 </head>
 
-<body>
+<body style="opacity:0;">
 
 <h1 class="header">
     Singular Isothermal Ellipsoid
@@ -1429,11 +1424,22 @@ function fadeAndRedirect(url) {
 }
 
 
-    window.onload = () => {
-    setTimeout(() => {
-        document.body.classList.add("fade-in");
-    }, 500);
-    };
+  window.addEventListener("load", () => {
+
+    requestAnimationFrame(() => {
+
+      requestAnimationFrame(() => {
+
+        document.body.style.transition =
+          "opacity 1s ease";
+
+        document.body.style.opacity = "1";
+
+      });
+
+    });
+
+  });
 
 
 </script>
