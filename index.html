@@ -549,7 +549,7 @@
 
 				preview.style.opacity = 1;
 				preview.style.transform = "translateX(0)";
-				}, 100);
+				}, 400);
 			});
 
 			item.addEventListener("mouseleave", () => {
@@ -706,17 +706,15 @@
 				document.querySelectorAll(".dropdown a").forEach(link => {
 				link.addEventListener("click", function(e) {
 					e.preventDefault();
-			
-					// fade out page
-					document.body.style.transition = "opacity 0.35s ease";
+
+					document.body.style.transition = "opacity 0.3s ease";
 					document.body.style.opacity = 0;
-			
-					// navigate after fade completes
+
 					setTimeout(() => {
-						window.location.href = this.href;
-					}, 350);
+					window.location.href = this.href;
+					}, 100);
 				});
-			});
+				});
 			</script>
 	</body>
 </html>
