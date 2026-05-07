@@ -616,9 +616,9 @@ function updateDisplay() {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     document.body.classList.add('fade-in');
-  }, 300);
+  });
 });
 
 updateDisplay();

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Simulation</title>
+  <title>Gravitational Lensing</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -93,9 +93,11 @@
     <script src="ring_sim.js"></script>
 
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener('DOMContentLoaded', () => {
+        requestAnimationFrame(() => {
           document.body.classList.add('fade-in');
         });
+      });
       </script>
       <a href="#" onclick="fadeAndRedirect('index.html#three')" style="
       position: absolute;

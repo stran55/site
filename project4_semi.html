@@ -115,14 +115,14 @@
  </a>
  
   <a href="#" onclick="fadeAndRedirect('index.html#three'); return false;" style="text-decoration: none; color: white;">
-  <h2 class="return"><span style="margin-left: 10px; margin-right: 4px">Return</span><i class="fa-solid fa-right-from-bracket"></i>
+  <h2 class="return"><span style="margin-left: 10px; margin-right: 4px">Return </span><i class="fa-solid fa-right-from-bracket"></i>
 </a>
 
   <script>
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       document.body.classList.add('fade-in');
-    }, 150);
+    });
   });
   </script>
 
