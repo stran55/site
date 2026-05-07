@@ -39,10 +39,18 @@ body {
 
     opacity: 0;
 
-    transition:
-        opacity 1s ease;
+    animation: pageFade 1s ease forwards;
+    animation-delay: 0.1s;
 
-    background: black;
+}
+@keyframes pageFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 #blackOverlay {
@@ -1423,23 +1431,6 @@ function fadeAndRedirect(url) {
     }, 250);
 }
 
-
-  window.addEventListener("load", () => {
-
-    requestAnimationFrame(() => {
-
-      requestAnimationFrame(() => {
-
-        document.body.style.transition =
-          "opacity 1s ease";
-
-        document.body.style.opacity = "1";
-
-      });
-
-    });
-
-  });
 
 
 </script>
