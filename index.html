@@ -706,15 +706,17 @@
 				document.querySelectorAll(".dropdown a").forEach(link => {
 				link.addEventListener("click", function(e) {
 					e.preventDefault();
-
-					document.body.style.transition = "opacity 0.3s ease";
+			
+					// fade out page
+					document.body.style.transition = "opacity 0.35s ease";
 					document.body.style.opacity = 0;
-
+			
+					// navigate after fade completes
 					setTimeout(() => {
-					window.location.href = this.href;
-					}, 150);
+						window.location.href = this.href;
+					}, 350);
 				});
-				});
+			});
 			</script>
 	</body>
 </html>
