@@ -30,7 +30,7 @@
 			padding-top: 120px;
 		}
 		@media screen and (min-width: 980px) {
-			#three .container {
+			#main .container {
 				margin-top: 0px;
 			}
 		}
@@ -378,7 +378,7 @@
 			</section>-->
 
 		<!-- Three -->
-			<section id="three" class="main special">
+			<section id="main" class="main special">
 				
 				<div class="container">
 						
@@ -426,11 +426,11 @@
 									Sandbox<i class="fas fa-chevron-down arrow"></i>
 								</h2>
 								<div id="sandboxDropdown" class="dropdown">
-										<a href="ring_simulation.html">
-										<h3 class="dropdown-item"><span class="item-text">Lensing</h3>
+										<a href="lensing.html">
+										<h3 class="dropdown-item"><span class="item-text">Gravitational Lensing</h3>
 										</a>
 										<a href="signal.html">
-										<h3 class="dropdown-item"><span class="item-text">Signal</h3>
+										<h3 class="dropdown-item"><span class="item-text">Signal Scope</h3>
 										</a>
 								</div>
 							</div>
@@ -564,7 +564,7 @@
 			function goToMain() {
 			const flash = document.getElementById("flash");
 			const header = document.getElementById("header");
-			const main = document.getElementById("three");
+			const main = document.getElementById("main");
 
 			flash.style.transition = "background-size 0.10s cubic-bezier(0.2, 1, 0.3, 1)";
 			flash.style.backgroundSize = "300% 300%";
@@ -712,7 +712,7 @@
 
 					setTimeout(() => {
 					window.location.href = this.href;
-					}, 300);
+					}, 400);
 				});
 				});
 			</script>
