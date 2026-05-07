@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Oscilloscope</title>
+  <title>OSC Signal</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;500&display=swap" rel="stylesheet">
@@ -74,6 +74,20 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 30px;
       cursor: pointer;
+      transition:
+          transform 0.08s ease,
+          box-shadow 0.08s ease,
+          border-color 0.08s ease;
+      box-shadow:
+      0 4px 0 #008855;
+    }
+    button:active {
+    transform: translateY(4px);
+
+    box-shadow:
+      0 1px 0 #008855;
+
+      border-color: #66ffbb;
     }
     button i {
     width: 1em;          /* same width for all icons */
@@ -84,7 +98,9 @@
       gap: 8px;
     }
     button:hover {
-      box-shadow: 0 0 10px #00ff88;
+      box-shadow:
+        0 4px 0 #008855,
+        0 0 12px #00ff88;
     }
     .label {
       font-size: 22px;   /* adjust this */
@@ -108,7 +124,14 @@
       transition: opacity 0.2s ease;
       z-index: 9999;
     }
+    .wide-button {
+    width: 100px;
+    height: 52px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
     .return {
       margin-top: 50px;
       font-size: 32px;
@@ -129,6 +152,26 @@
 <canvas id="scopeCanvas" width="900" height="400"></canvas>
 
 <div class="controls">
+<div class="control-block">
+    <div class="label">Display</div>
+    <div class="button-row">
+      <button onclick="toggleWave(0)"><i class="fa-solid fa-1"></i></button>
+      <button onclick="toggleWave(1)"><i class="fa-solid fa-2"></i></button>
+    </div>
+    <div class="display" id="showingDisplay"></div>
+  </div>
+
+    <div class="control-block">
+    <div class="label">Mode</div>
+
+    <div class="button-row">
+      <button class="wide-button" onclick="toggleMode()">
+        <span id="modeDisplay">DUAL</span>
+      </button>
+    </div>
+
+    <div class="display" id="modeText"></div>
+  </div>
 
   <div class="control-block">
     <div class="label">Time/Div</div>
@@ -147,22 +190,19 @@
     </div>
     <div class="display" id="voltDisplay"></div>
     
-  </div>
-  
-  <div class="control-block">
-    <div class="label">Speed</div>
-    <div class="button-row">
-  <button onclick="incSpeed()"><i class="fa-solid fa-plus"></i></button>
-  <button onclick="decSpeed()"><i class="fa-solid fa-minus"></i></button>
-  </div>
-  <div class="display" id="speedDisplay"></div>
-  </div>
-  
+  </div>  
 
 </div>
 
 <div class="controls">
-
+<div class="control-block">
+    <div class="label">Edit</div>
+    <div class="button-row">
+      <button onclick="setActive(0)"><i class="fa-solid fa-1"></i></button>
+      <button onclick="setActive(1)"><i class="fa-solid fa-2"></i></button>
+    </div>
+    <div class="display" id="activeDisplay"></div>
+  </div>
   
   <div class="control-block">
     <div class="label">Wave</div>
@@ -195,27 +235,19 @@
 <div class="controls">
       <div class="control-block">
       <div class="label">Playback</div>
-  <button onclick="togglePause()"><i id="pauseIcon" class="fa-solid fa-pause"></i></button>
+  <button class="wide-button" onclick="togglePause()"><i id="pauseIcon" class="fa-solid fa-pause"></i></button>
   <div class="display" id="pauseDisplay"></div>
   </div>
 
-  <div class="control-block">
-    <div class="label">Display</div>
+    <div class="control-block">
+    <div class="label">Speed</div>
     <div class="button-row">
-      <button onclick="toggleWave(0)"><i class="fa-solid fa-1"></i></button>
-      <button onclick="toggleWave(1)"><i class="fa-solid fa-2"></i></button>
-    </div>
-    <div class="display" id="showingDisplay"></div>
+  <button onclick="incSpeed()"><i class="fa-solid fa-plus"></i></button>
+  <button onclick="decSpeed()"><i class="fa-solid fa-minus"></i></button>
+  </div>
+  <div class="display" id="speedDisplay"></div>
   </div>
 
-  <div class="control-block">
-    <div class="label">Edit Wave</div>
-    <div class="button-row">
-      <button onclick="setActive(0)"><i class="fa-solid fa-1"></i></button>
-      <button onclick="setActive(1)"><i class="fa-solid fa-2"></i></button>
-    </div>
-    <div class="display" id="activeDisplay"></div>
-  </div>
 
 </div>
 <script>
@@ -269,6 +301,20 @@ waves[activeWave].type = waveTypes[waveIndex];
 
 const ampSteps = [0.1, 0.2, 0.5, 1, 2, 5];
 let ampIndex = 3; 
+
+let combinedMode = false;
+
+function toggleMode() {
+  combinedMode = !combinedMode;
+
+  document.getElementById("modeDisplay").innerHTML =
+  combinedMode
+    ? '<i class="fa-solid fa-wave-square"></i>'
+    : '<i class="fa-solid fa-chart-line"></i>';
+
+  document.getElementById("modeText").textContent =
+    combinedMode ? "Combine" : "Dual";
+}
 
 function incFreq() {
   if (freqIndex < freqSteps.length - 1) {
@@ -447,28 +493,83 @@ function drawWave() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGrid();
 
+if (combinedMode) {
+
+  ctx.beginPath();
+
+  for (let x = 0; x < canvas.width; x++) {
+
+    let t = time + (x / gridPx) * timePerDiv;
+
+    let yTotal = 0;
+
+    waves.forEach((wave) => {
+
+      if (!wave.visible) return;
+
+      yTotal +=
+        wave.amp *
+        getWaveValue(wave.type, wave.freq, t);
+
+    });
+
+    let yPos =
+      canvas.height / 2 -
+      (yTotal / voltsPerDiv) * gridPx;
+
+    if (x === 0) ctx.moveTo(x, yPos);
+    else ctx.lineTo(x, yPos);
+  }
+
+  ctx.strokeStyle = "#00ff88";
+  ctx.lineWidth = 2;
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = "#00ff88";
+  ctx.stroke();
+
+}
+
+else {
+
   waves.forEach((wave, i) => {
+
     if (!wave.visible) return;
 
     ctx.beginPath();
 
     for (let x = 0; x < canvas.width; x++) {
+
       let t = time + (x / gridPx) * timePerDiv;
 
-      let y = wave.amp * getWaveValue(wave.type, wave.freq, t)
+      let y =
+        wave.amp *
+        getWaveValue(wave.type, wave.freq, t);
 
-      let yPos = canvas.height / 2 - (y / voltsPerDiv) * gridPx;
+      let yPos =
+        canvas.height / 2 -
+        (y / voltsPerDiv) * gridPx;
 
       if (x === 0) ctx.moveTo(x, yPos);
       else ctx.lineTo(x, yPos);
     }
 
-    ctx.strokeStyle = i === 0 ? "#00ff88" : "#00ff88";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#00ff88";
+
+    ctx.globalAlpha =
+      i === activeWave ? 1 : 0.4;
+
+    ctx.lineWidth =
+      i === activeWave ? 3 : 2;
+
     ctx.shadowBlur = 10;
-    ctx.shadowColor = ctx.strokeStyle;
+    ctx.shadowColor = "#00ff88";
+
     ctx.stroke();
+
+    ctx.globalAlpha = 1;
   });
+
+}
 
   if (!paused) {
     time += (0.01 / timePerDiv) * sweepSpeed;
@@ -490,7 +591,7 @@ function updateDisplay() {
 
   let showingText;
   if (waves[0].visible && waves[1].visible) {
-    showingText = "1 & 2";
+    showingText = "Both";
   } else if (waves[0].visible) {
     showingText = "Wave 1";
   } else if (waves[1].visible) {
@@ -504,6 +605,13 @@ function updateDisplay() {
     "Editing: " + (activeWave + 1);
   document.getElementById("ampDisplay").textContent =
   waves[activeWave].amp + " V";
+  document.getElementById("modeDisplay").innerHTML =
+  combinedMode
+    ? '<i class="fa-solid fa-wave-square"></i>'
+    : '<i class="fa-solid fa-chart-line"></i>';
+
+  document.getElementById("modeText").textContent =
+    combinedMode ? "Combine" : "Dual";
 }
 
 
