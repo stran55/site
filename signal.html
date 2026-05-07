@@ -838,16 +838,17 @@ drawWave();
 
     setTimeout(() => {
       window.location.href = url;
-    }, 150); 
+    }, 250); 
   }
 </script>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-  requestAnimationFrame(() => {
-    document.body.classList.add('fade-in');
-  });
-});
+window.onload = () => {
+  setTimeout(() => {
+    document.body.classList.add("fade-in");
+  }, 500);
+};
 </script>
+
 
 </html>

@@ -1428,17 +1428,13 @@ function fadeAndRedirect(url) {
     }, 250);
 }
 
-window.addEventListener(
-    "DOMContentLoaded",
-    () => {
 
-    requestAnimationFrame(() => {
+    window.onload = () => {
+    setTimeout(() => {
+        document.body.classList.add("fade-in");
+    }, 500);
+    };
 
-        document.body.classList.add(
-            "fade-in"
-        );
-    });
-});
 
 </script>
 
