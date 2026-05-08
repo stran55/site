@@ -38,10 +38,9 @@ body {
     overflow-x: hidden;
 
     opacity: 0;
-
-    animation: pageFade 1s ease forwards;
-    animation-delay: 0.1s;
-
+}
+.fade-in {
+  animation: pageFade 0.5s ease forwards;
 }
 @keyframes pageFade {
   from {
@@ -1435,14 +1434,13 @@ function fadeAndRedirect(url) {
 
 </script>
 <script>
-window.addEventListener("pageshow", (event) => {
+window.addEventListener("pageshow", () => {
 
-  document.body.style.animation = "none";
+  document.body.classList.remove("fade-in");
 
   void document.body.offsetWidth;
 
-  document.body.style.animation =
-    "pageFade 1s ease forwards";
+  document.body.classList.add("fade-in");
 
 });
 </script>
