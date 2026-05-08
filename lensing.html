@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Gravitational Lensing</title>
+<title>Strong Lensing</title>
 <link rel="icon" type="image/png" href="images/whitebearC.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,27 +24,22 @@
 }
 
 body {
-
     margin: 0;
-
     background: var(--background);
-
     color: var(--theme);
-
     font-family: 'Orbitron', sans-serif;
-
     text-align: center;
-
     overflow-x: hidden;
-
     opacity: 0;
 }
+
 .fade-in {
-  animation: pageFade 0.5s ease forwards;
+    animation: pageFade 0.5s ease forwards;
 }
+
 @keyframes pageFade {
   from {
-    opacity: 0;
+   opacity: 0;
   }
 
   to {
@@ -53,126 +48,80 @@ body {
 }
 
 #blackOverlay {
-
     position: fixed;
-
     inset: 0;
-
     background: black;
-
     opacity: 0;
-
     pointer-events: none;
-
     transition:
         opacity 0.25s ease;
-
     z-index: 9999;
 }
 
 
 .header {
-
     margin-top: 30px;
-
     font-size: 52px;
-
     color: white;
-
     text-shadow:
         0 0 0px var(--theme-glow);
 }
 
 .display-box {
-
     position: relative;
-
     width: 1000px;
-
     margin: 40px auto 0 auto;
-
     border: 2px solid var(--theme);
-
     border-radius: 12px;
-
     box-shadow:
         0 0 5px var(--theme-glow);
-
     overflow: hidden;
-
     background: var(--background);
 }
 
 canvas {
-
     display: block;
-
     width: 1000px;
     height: 600px;
-
     background: black;
 }
 
 .display-data {
-
     position: absolute;
-
     right: 20px;
     bottom: 20px;
-
     text-align: right;
-
     font-size: 18px;
-
     color: var(--theme-light);
-
     text-shadow:
         0 0 8px var(--theme-glow);
-
     line-height: 1.6;
-
     background:
         rgba(0,0,0,0.35);
-
     padding: 12px 16px;
-
     border-radius: 8px;
-
     border:
         1px solid rgba(255,255,255,0.08);
-
     backdrop-filter:
         blur(4px);
 }
 
 .distance-scale {
-
     position: absolute;
-
     left: 60px;
     right: 60px;
-
     bottom: 50px;
-
     height: 120px;
-
     pointer-events: none;
 }
 
-/* MAIN LINE */
 
 .distance-line {
-
     position: absolute;
-
     left: 0;
-
     width: 100%;
-
     top: 36px;
-
     height: 6px;
-
     background:
         linear-gradient(
             to right,
@@ -180,487 +129,315 @@ canvas {
             var(--theme),
             transparent
         );
-
     box-shadow:
         0 0 12px var(--theme-glow);
 }
 
 
 .observer-marker {
-
     left: 0%;
 }
 
 .marker-dot {
-
     width: 24px;
     height: 24px;
-
     border-radius: 50%;
-
     background: var(--theme);
-
     box-shadow:
         0 0 16px var(--theme-glow);
-
     margin: auto;
 }
 
 .marker-label {
-
     position: absolute;
-
     bottom: 26px;
-
     left: 50%;
-
     transform: translateX(-50%);
-
     font-size: 16px;
-
     color: var(--theme-light);
-
     text-shadow:
         0 0 8px var(--theme-glow);
-
     white-space: nowrap;
 }
 
-/* DISTANCE BARS */
-
 .distance-bars {
-
     position: absolute;
-
     width: 100%;
-  
     top: 50px;
-
     left: 0;
 }
 
 .distance-bar {
-
     position: absolute;
-
     height: 2px;
-
     border-radius: 20px;
-
     transition:
         left 0.25s ease,
         width 0.25s ease;
-
     box-shadow:
         0 0 12px currentColor;
 }
 
-
-
 .bar-cap {
-
     position: absolute;
-
     width: 3px;
-
     height: 16px;
-
     top: -6px;
-
     background: currentColor;
-
     box-shadow:
         0 0 10px currentColor;
 }
 
 .left-cap {
-
     left: 0;
 }
 
 .right-cap {
-
     right: 0;
 }
 
-/* LABELS */
-
 .distance-bar span {
-
     position: absolute;
-
     left: 50%;
-
     top: 12px;
-
     transform:
         translateX(-50%);
-
     font-size: 16px;
-
     color: var(--theme-light);
-
     white-space: nowrap;
-
     text-shadow:
         0 0 8px currentColor;
 }
 
-/* INDIVIDUAL BARS */
-
 .dl-bar {
-
     top: 28px;
-
     background: #ffb347;
-
     color: #ffb347;
 }
 
 .dls-bar {
-
     top: 28px;
-
     background: #ffd885;
-
     color: #ffd885;
 }
 
 .ds-bar {
-
     top: 72px;
-
     background: #ffe066;
-
     color: #ffe066;
 }
+
 .distance-marker {
-
     position: absolute;
-
     top: 32px;
-
     transform: translateX(-50%);
-
     transition:
         left 0.25s ease;
 }
 
 .marker-dot {
-
     width: 14px;
     height: 14px;
-
     border-radius: 50%;
-
     background: var(--theme);
-
     box-shadow:
         0 0 12px var(--theme-glow);
-
     margin: auto;
 }
 
 .marker-label {
-
     margin-top: 8px;
-
     font-size: 16px;
-
     color: var(--theme-light);
-
     text-shadow:
         0 0 8px var(--theme-glow);
-
     white-space: nowrap;
 }
 
 .controls {
-
     width: 970px;
-
     margin: 30px auto;
-
     display: flex;
-
     justify-content: center;
-
     flex-wrap: wrap;
-
     gap: 18px;
-
     border: 2px solid var(--theme);
-
     border-radius: 10px;
-
     padding: 16px;
-
     box-shadow:
         0 0 5px var(--theme-glow);
 }
 
 .control-block {
-
     width: 200px;
-
     padding: 10px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 }
 
 .label {
-
     font-size: 22px;
-
     margin-bottom: 10px;
 }
 
 .display {
-
     margin-top: 10px;
-
     font-size: 30px;
-
     color: var(--theme-light);
-
     text-shadow:
         0 0 8px var(--theme-glow);
 }
 
 input[type="range"] {
-
     -webkit-appearance: none;
-
     width: 130px;
-
     height: 10px;
-
     background: var(--background);
-
     border-radius: 10px;
-
     border: 2px solid var(--theme);
-
     box-shadow:
         0 4px 0 var(--theme-dark);
 }
 
 input[type="range"]::-webkit-slider-thumb {
-
     -webkit-appearance: none;
-
     width: 24px;
     height: 24px;
-
     border-radius: 50%;
-
     background: black;
-
     border: 2px solid var(--theme);
-
     cursor: pointer;
-
     box-shadow:
         0 4px 0 var(--theme-dark);
 }
+.coord-line {
+    display: inline-block;
+    width: 80px;
+    text-align: left;
+}
+
 .source-coords {
-
     position: absolute;
-
     top: 18px;
     right: 20px;
-
-    text-align: right;
-
+    text-align: left;
     font-size: 16px;
-
     line-height: 1.5;
-
     color: var(--theme-light);
-
     text-shadow:
         0 0 8px var(--theme-glow);
-
     background:
         rgba(0,0,0,0.35);
-
     padding: 10px 14px;
-
     border-radius: 8px;
-
     border:
         1px solid rgba(255,255,255,0.08);
-
     backdrop-filter:
         blur(4px);
 }
+
 .info {
-
     position: absolute;
-
     top: 18px;
-
     left: 20px;
-
     z-index: 10;
-
     color: var(--theme-light);
-
-    font-size: 16px;
-
+    font-size: 24px;
     text-shadow:
         0 0 8px var(--theme-glow);
-
     background:
         rgba(0,0,0,0.35);
-
     padding: 10px 14px;
-
     border-radius: 8px;
-
     border:
         1px solid rgba(255,255,255,0.08);
-
     backdrop-filter:
         blur(4px);
 }
 
-    .return {
-      margin-top: 50px;
-      font-size: 32px;
-      cursor: pointer;
-      transition: transform 0.2s ease, text-shadow 0.3s ease;
-    }
+.return {
+    margin-top: 50px;
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s ease, text-shadow 0.3s ease;
+}
 
-    .return:hover {
-      transform: scale(1.05);
-      text-shadow: 0 0 12px #ff6600;
-    }
+.return:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 12px #ff6600;
+}
 </style>
+
+
 </head>
 
 <body style="opacity:0;">
 
-<h1 class="header">
-    Singular Isothermal Ellipsoid
-</h1>
+<h1 class="header">Strong Gravitational Lensing</h1>
 
 <div class="display-box">
-
-    <div class="info">
-      Drag on the display to move the source.
-    </div>
+    <div class="info">Drag on the display to move the source.</div>
 
     <canvas id="lensCanvas"
             width="1000"
             height="600">
     </canvas>
-    <div class="source-coords"
-        id="sourceCoords">
-
-        βx: 0.20<br>
-        βy: 0.10
-
-    </div>
-
+    <div class="source-coords"id="sourceCoords">βx: 0.20<br>βy: 0.10</div>
     <div class="distance-scale">
-
       <div class="distance-line"></div>
+            <div class="distance-marker observer-marker">
+                <div class="marker-dot"></div>
+                <div class="marker-label">
+                    Observer
+                </div>
+            </div>
 
-      <!-- MARKERS -->
+            <div class="distance-marker lens-marker"
+                id="lensMarker">
+                <div class="marker-dot"></div>
+                <div class="marker-label">
+                    Lens
+                </div>
+            </div>
 
-      <div class="distance-marker observer-marker">
+            <div class="distance-marker source-marker"
+                id="sourceMarker">
+                <div class="marker-dot"></div>
+                <div class="marker-label">
+                    Source
+                </div>
+            </div>
 
-          <div class="marker-dot"></div>
+            <div class="distance-bars">
 
-          <div class="marker-label">
-              Observer
-          </div>
+                <div class="distance-bar dl-bar"
+                    id="DLBar">
+                    <div class="bar-cap left-cap"></div>
+                    <div class="bar-cap right-cap"></div>
+                    <span id="DLLabel"></span>
+                </div>
 
-      </div>
+                <div class="distance-bar dls-bar"
+                    id="DLSBar">
+                    <div class="bar-cap left-cap"></div>
+                    <div class="bar-cap right-cap"></div>
+                    <span id="DLSLabel"></span>
+                </div>
 
-      <div class="distance-marker lens-marker"
-          id="lensMarker">
-
-          <div class="marker-dot"></div>
-
-          <div class="marker-label">
-              Lens
-          </div>
-
-      </div>
-
-      <div class="distance-marker source-marker"
-          id="sourceMarker">
-
-          <div class="marker-dot"></div>
-
-          <div class="marker-label">
-              Source
-          </div>
-
-      </div>
-
-      <!-- DISTANCE BARS -->
-
-      <div class="distance-bars">
-
-          <!-- DL -->
-
-          <div class="distance-bar dl-bar"
-              id="DLBar">
-
-              <div class="bar-cap left-cap"></div>
-              <div class="bar-cap right-cap"></div>
-
-              <span id="DLLabel"></span>
-
-          </div>
-
-          <!-- DLS -->
-
-          <div class="distance-bar dls-bar"
-              id="DLSBar">
-
-              <div class="bar-cap left-cap"></div>
-              <div class="bar-cap right-cap"></div>
-
-              <span id="DLSLabel"></span>
-
-          </div>
-
-          <!-- DS -->
-
-          <div class="distance-bar ds-bar"
-              id="DSBar">
-
-              <div class="bar-cap left-cap"></div>
-              <div class="bar-cap right-cap"></div>
-
-              <span id="DSLabel"></span>
-
-          </div>
-
-      </div>
-
-  </div>
-      
-
-
+                <div class="distance-bar ds-bar"
+                    id="DSBar">
+                    <div class="bar-cap left-cap"></div>
+                    <div class="bar-cap right-cap"></div>
+                    <span id="DSLabel"></span>
+                </div>
+            </div>
+        </div>
 </div>
 
 <div class="controls">
-
     <div class="control-block">
-
-        <div class="label">
-            Dispersion
-        </div>
-
+        <div class="label">Dispersion</div>
         <input type="range"
                id="sigmaV"
                min="50"
@@ -671,16 +448,10 @@ input[type="range"]::-webkit-slider-thumb {
         <div class="display"
              id="sigmaVValue">
         </div>
-
     </div>
 
-
     <div class="control-block">
-
-        <div class="label">
-            Ellipticity
-        </div>
-
+        <div class="label">Ellipticity</div>
         <input type="range"
                id="ellipticity"
                min="0.1"
@@ -691,15 +462,10 @@ input[type="range"]::-webkit-slider-thumb {
         <div class="display"
              id="ellipticityValue">
         </div>
-
     </div>
 
     <div class="control-block">
-
-        <div class="label">
-            Angle
-        </div>
-
+        <div class="label">Angle</div>
         <input type="range"
                id="phi"
                min="0"
@@ -710,15 +476,10 @@ input[type="range"]::-webkit-slider-thumb {
         <div class="display"
              id="phiValue">
         </div>
-
     </div>
 
     <div class="control-block">
-
-        <div class="label">
-            Source Size
-        </div>
-
+        <div class="label">Source Size</div>
         <input type="range"
                id="sigma"
                min="0.02"
@@ -736,9 +497,7 @@ input[type="range"]::-webkit-slider-thumb {
 <div class="controls">
     <div class="control-block">
 
-        <div class="label">
-            Lens Z
-        </div>
+        <div class="label">Lens Z</div>
 
         <input type="range"
                id="zLens"
@@ -750,14 +509,10 @@ input[type="range"]::-webkit-slider-thumb {
         <div class="display"
              id="zLensValue">
         </div>
-
     </div>
 
     <div class="control-block">
-
-        <div class="label">
-            Source Z
-        </div>
+        <div class="label">Source Z</div>
 
         <input type="range"
                id="zSource"
@@ -769,14 +524,12 @@ input[type="range"]::-webkit-slider-thumb {
         <div class="display"
              id="zSourceValue">
         </div>
-
     </div>
 </div>
 
 
 
 <script>
-
 const canvas =
     document.getElementById("lensCanvas");
 
@@ -791,8 +544,37 @@ const OM = 0.3;
 const OV = 0.7;
 const OK = 1 - OM - OV;
 
-let sourceX = 0.2;
-let sourceY = 0.1;
+const introRange = 10;
+
+const xSign =
+    Math.random() < 0.5 ? -1 : 1;
+
+const ySign =
+    Math.random() < 0.5 ? -1 : 1;
+
+let introAnimating = true;
+
+let sourceX =
+    Math.random() *
+    introRange *
+    xSign;
+
+let sourceY =
+    Math.random() *
+    introRange *
+    ySign;
+
+const targetRange = 0.3;
+
+const targetSourceX =
+
+    (Math.random() * 2 - 1)
+    * targetRange;
+
+const targetSourceY =
+
+    (Math.random() * 2 - 1)
+    * targetRange;
 
 const scale = 4;
 
@@ -978,6 +760,42 @@ function drawGrid() {
         ctx.stroke();
     }
 }
+function animateSourceIntro() {
+
+    const speed = 0.12;
+
+    sourceX +=
+        (targetSourceX - sourceX)
+        * speed;
+
+    sourceY +=
+        (targetSourceY - sourceY)
+        * speed;
+
+    renderLens();
+
+    const done =
+
+        Math.abs(
+            targetSourceX - sourceX
+        ) < 0.001
+
+        &&
+
+        Math.abs(
+            targetSourceY - sourceY
+        ) < 0.001;
+
+    if (!done && introAnimating) {
+
+        requestAnimationFrame(
+            animateSourceIntro
+        );
+    }
+    if (done) {
+        introAnimating = false;
+    }
+}
 
 function renderLens() {
 
@@ -985,13 +803,19 @@ function renderLens() {
     "sourceCoords"
     ).innerHTML =
 
-        "βx: " +
-        sourceX.toFixed(2) +
+        `<span class="coord-line">
+            βx: ${sourceX >= 0
+        ? "+" + sourceX.toFixed(2)
+        : sourceX.toFixed(2)}
+        </span>
 
-        "<br>" +
+        <br>
 
-        "βy: " +
-        sourceY.toFixed(2);
+        <span class="coord-line">
+            βy: ${sourceY >= 0
+    ? "+" + sourceY.toFixed(2)
+    : sourceY.toFixed(2)}
+        </span>`;
 
     const sigmaV =
         parseFloat(
@@ -1352,7 +1176,7 @@ canvas.addEventListener(
 
     if (e.buttons !== 1)
         return;
-
+    introAnimating = false;
     const rect =
         canvas.getBoundingClientRect();
 
@@ -1384,7 +1208,7 @@ document
     );
 });
 
-renderLens();
+animateSourceIntro();
 
 </script>
 

@@ -79,7 +79,7 @@
 		overflow-x: visible;
 		overflow-y: hidden;
 		transition: height 0.5s ease;
-		margin-top: -10px;
+		margin-top: -20px;
 		text-align: left;
 		outline: none;
 		width: 600px;
@@ -198,6 +198,57 @@
 		100% { transform: scale(1.05); } 
 		}
 
+		.resume-button {
+			position: relative;
+			cursor: pointer;
+			display: inline-block;
+			min-width: 260px;
+			top: 8px;
+		}
+
+		.resume-loader {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 0%;
+			height: 10px;
+			background: rgba(0, 0, 0, 0.979);
+			border-radius: 999px;
+			overflow: hidden;
+			opacity: 0;
+			transition: opacity 0.2s ease;
+		}
+
+		.resume-bar {
+			width: 0%;
+			height: 100%;
+			background: linear-gradient(90deg, #fecc7b, #fecc7b);
+			border-radius: 999px;
+		}
+
+		.resume-loading #resumeText {
+			opacity: 0;
+		}
+
+		.resume-loading #resumeLoader {
+			width: 500px;
+			opacity: 1;
+		}
+
+		.resume-loading .resume-bar {
+			animation: resumeLoad 0.5s ease forwards;
+		}
+
+		@keyframes resumeLoad {
+			from {
+				width: 0%;
+			}
+			to {
+				width: 100%;
+			}
+		}
+
 		.preview-box {
 		position: absolute;
 		right: -20vw;  
@@ -297,6 +348,10 @@
 			0 0 10px white,
 			0 0 25px #7a5cff,
 			0 0 40px #5ce1ff;
+		}
+		.exit-button {
+			position: relative;
+			top: 13px;
 		}
 		</style>
 	</head>
@@ -423,9 +478,19 @@
 										</a>
 								</div>
 							</div>
-							<a href="assets/resume.pdf" target="_blank" style="font-family: 'Orbitron', sans-serif; color: white;">
-							<h2 class="centered-title grow-smooth">Resume<span style="margin-right: 4px; margin-left: 12px;"></span><i class="fa-regular fa-file-pdf"></i></h2>
-							</a>
+							<div class="resume-container">
+								<h2 id="resumeButton" class="centered-title grow-smooth resume-button"
+									style="font-family: 'Orbitron', sans-serif;">
+									<span id="resumeText">
+										Resume<span style="margin-right: 4px; margin-left: 12px; "></span>
+										<i class="fa-regular fa-file-pdf"></i>
+									</span>
+
+									<div id="resumeLoader" class="resume-loader">
+										<div class="resume-bar"></div>
+									</div>
+								</h2>
+							</div>
 							<div class="dropdown-wrapper">
 								<h2 onclick="toggleDropdown('sandboxDropdown', this)" 
 									class="centered-title grow-smooth" 
@@ -434,7 +499,7 @@
 								</h2>
 								<div id="sandboxDropdown" class="dropdown">
 										<a href="lensing.html">
-										<h3 class="dropdown-item"><span class="item-text">Gravitational Lensing</h3>
+										<h3 class="dropdown-item"><span class="item-text">Gravitational Lens</h3>
 										</a>
 										<a href="signal.html">
 										<h3 class="dropdown-item"><span class="item-text">Signal Scope</h3>
@@ -726,6 +791,22 @@
 			<script>
 			window.addEventListener("pageshow", () => {
 			document.body.classList.remove("page-exit");
+			});
+			</script>
+			<script>
+			const resumeButton = document.getElementById("resumeButton");
+
+			resumeButton.addEventListener("click", () => {
+
+				if (resumeButton.classList.contains("resume-loading")) return;
+
+				resumeButton.classList.add("resume-loading");
+
+				setTimeout(() => {
+					window.open("assets/resume.pdf", "_blank");
+					resumeButton.classList.remove("resume-loading");
+				}, 500);
+
 			});
 			</script>
 	</body>
