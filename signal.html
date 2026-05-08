@@ -850,7 +850,18 @@ drawWave();
 
 
 </script>
+<script>
+window.addEventListener("pageshow", (event) => {
 
+  document.body.style.animation = "none";
+
+  void document.body.offsetWidth;
+
+  document.body.style.animation =
+    "pageFade 1s ease forwards";
+
+});
+</script>
 
 
 </html>
