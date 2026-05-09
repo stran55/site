@@ -79,7 +79,7 @@
 		overflow-x: visible;
 		overflow-y: hidden;
 		transition: height 0.5s ease;
-		margin-top: -20px;
+		margin-top: -10px;
 		text-align: left;
 		outline: none;
 		width: 600px;
@@ -203,7 +203,7 @@
 			cursor: pointer;
 			display: inline-block;
 			min-width: 260px;
-			top: 8px;
+			top:0px;
 		}
 
 		.resume-loader {
@@ -351,7 +351,7 @@
 		}
 		.exit-button {
 			position: relative;
-			top: 13px;
+			top: 5px;
 		}
 		</style>
 	</head>
@@ -478,6 +478,25 @@
 										</a>
 								</div>
 							</div>
+							<div class="dropdown-wrapper">
+								<h2 onclick="toggleDropdown('sandboxDropdown', this)" 
+									class="centered-title grow-smooth" 
+									style="font-family: 'Orbitron', sans-serif; margin-top: 10px">
+									Simulations<i class="fas fa-chevron-down arrow"></i>
+								</h2>
+								<div id="sandboxDropdown" class="dropdown">
+										<a href="fresnel.html">
+										<h3 class="dropdown-item"><span class="item-text">Fresnel Equations</h3>
+										</a>
+										<a href="lensing.html">
+										<h3 class="dropdown-item"><span class="item-text">Gravitational Lens</h3>
+										</a>
+										<a href="signal.html">
+										<h3 class="dropdown-item"><span class="item-text">Function Generator</h3>
+										</a>
+										
+								</div>
+							</div>
 							<div class="resume-container">
 								<h2 id="resumeButton" class="centered-title grow-smooth resume-button"
 									style="font-family: 'Orbitron', sans-serif;">
@@ -491,22 +510,6 @@
 									</div>
 								</h2>
 							</div>
-							<div class="dropdown-wrapper">
-								<h2 onclick="toggleDropdown('sandboxDropdown', this)" 
-									class="centered-title grow-smooth" 
-									style="font-family: 'Orbitron', sans-serif; margin-top: 10px">
-									Sandbox<i class="fas fa-chevron-down arrow"></i>
-								</h2>
-								<div id="sandboxDropdown" class="dropdown">
-										<a href="lensing.html">
-										<h3 class="dropdown-item"><span class="item-text">Gravitational Lens</h3>
-										</a>
-										<a href="signal.html">
-										<h3 class="dropdown-item"><span class="item-text">Signal Scope</h3>
-										</a>
-								</div>
-							</div>
-							
 							<div style="height: 0px;"></div>
 							<a href="index.html" class="exit-button" onclick="goBack(event)">
 								<h2 class="centered-title grow-smooth" style="font-family: 'Orbitron', sans-serif; ">
