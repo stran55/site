@@ -288,11 +288,15 @@ input[type="range"]::-webkit-slider-thumb{
 }
 
 .info-modal{
-    width:700px;
-    max-width:85%;
+    width:900px;
+    max-width:85vw;
+
+    max-height:85vh;
+    overflow-y:auto;
+
     font-family:'Exo 2', sans-serif;
     padding:30px;
-    font-size: 16px;
+    font-size: 20px;
     background:#050505;
 
     border:1px solid var(--theme);
@@ -307,6 +311,13 @@ input[type="range"]::-webkit-slider-thumb{
     text-align:left;
 
     line-height:1.6;
+}
+.info-modal::-webkit-scrollbar{
+    display:none;
+}
+
+.info-modal{
+    scrollbar-width:none;
 }
 
 .info-modal h2{
@@ -447,16 +458,16 @@ input[type="range"]::-webkit-slider-thumb{
 
         <div class="info-grid">
 
-            <div class="info-label">S - Reflectivity</div>
+            <div class="info-label">Reflectance (S)</div>
             <div class="info-value" id="RsDisplay">0.000</div>
 
-            <div class="info-label">P - Reflectivity</div>
+            <div class="info-label">Reflectance (P)</div>
             <div class="info-value" id="RpDisplay">0.000</div>
 
-            <div class="info-label">S - Transmissivity</div>
+            <div class="info-label">Transmittance (S)</div>
             <div class="info-value" id="TsDisplay">0.000</div>
 
-            <div class="info-label">P - Transmissivity</div>
+            <div class="info-label">Transmittance (P)</div>
             <div class="info-value" id="TpDisplay">0.000</div>
 
             <div class="info-label">Incident Angle</div>
