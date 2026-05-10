@@ -442,12 +442,15 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .info-modal{
-    width:700px;
-    max-width:85%;
+    width:900px;
+    max-width:85vw;
+
+    max-height:85vh;
+    overflow-y:auto;
     font-family:'Exo 2', sans-serif;
     padding:30px;
     background:#050505;
-    font-size: 16px;
+    font-size: 20px;
     border:1px solid var(--theme);
 
     border-radius:16px;
@@ -461,12 +464,18 @@ input[type="range"]::-webkit-slider-thumb {
 
     line-height:1.6;
 }
+.info-modal::-webkit-scrollbar{
+    display:none;
+}
 
+.info-modal{
+    scrollbar-width:none;
+}
 .info-modal h2{
     margin-top:0;
     font-family:'Orbitron', sans-serif;
     color:var(--theme-light);
-    font-size: 24px;
+    font-size: 30px;
     text-shadow:
         0 0 8px var(--theme-glow);
 }
