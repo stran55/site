@@ -83,7 +83,7 @@ canvas{
 .estimation-value{
     display:flex;
     align-items:center;
-    gap:0px;
+    gap:10px;
     margin-left:auto;
     width:max-content;
 }
@@ -195,6 +195,37 @@ input[type="range"]::-webkit-slider-thumb{
     display:grid;
     grid-template-columns:80px 1fr;
     row-gap:18px;
+}
+
+
+.value-input{
+    width:100px;
+
+    background:black;
+
+    color:var(--theme-light);
+
+    border:1px solid var(--theme);
+
+    border-radius:6px;
+
+    font-size:22px;
+
+    text-align:center;
+
+    padding:2px;
+
+    font-family:Orbitron;
+}
+.value-input::-webkit-outer-spin-button,
+.value-input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+
+.value-input{
+    appearance:textfield;
+    -moz-appearance:textfield;
 }
 
 .info-label{
@@ -779,6 +810,12 @@ let bestChi2 = Infinity;
 let searchThickness = 100;
 let searchIndex = 1.0;
 
+let targetPsi = 45;
+let targetDelta = 0;
+
+let fitDirty = false;
+let searchFrames = 0;
+let searchComplete = false;
 
 function updateValues(){
 
@@ -875,28 +912,47 @@ function toggleModelingMode(){
             id="psiSlider"
             min="0"
             max="90"
-            value="45"
-            style="width:200px; "
+            value="${targetPsi}"
+            style="width:160px; "
             oninput="
                 isSweeping = true;
+                bestChi2 = Infinity;
+                searchComplete = false;
+                searchThickness = 100;
+                targetPsi = this.value;
+                searchIndex = 1.0;
+                document.getElementById(
+                    'psiValue'
+                ).value =
+                this.value;
+                fitDirty = true;
+            "
+        >
+
+        <input
+            type="number"
+            id="psiValue"
+            value="${targetPsi}"
+            min="0"
+            max="90"
+            step="0.1"
+            class="value-input"
+            oninput="
+                targetPsi = parseFloat(this.value);
+                isSweeping = true;
+                document.getElementById(
+                    'psiSlider'
+                ).value = targetPsi;
+
                 bestChi2 = Infinity;
 
                 searchThickness = 100;
 
                 searchIndex = 1.0;
-                document.getElementById(
-                    'psiValue'
-                ).textContent =
-                this.value + '°'
+
+                searchComplete = false;
             "
         >
-
-        <span
-            id="psiValue"
-            class="estimation-number"
-        >
-        45°
-        </span>
 
         </div>
         `;
@@ -909,29 +965,47 @@ function toggleModelingMode(){
             id="deltaSlider"
             min="-180"
             max="180"
-            value="0"
-            style="width:200px; "
+            value="${targetDelta}"
+            style="width:160px; "
             oninput="
                 isSweeping = true;
+                bestChi2 = Infinity;
+                searchComplete = false;
+                searchThickness = 100;
+                searchIndex = 1.0;
+                targetDelta = this.value;
+                document.getElementById(
+                    'deltaValue'
+                ).value =
+                this.value;
+                fitDirty = true;
+            "
+        >
+
+        <input
+            type="number"
+            id="deltaValue"
+            value="${targetDelta}"
+            min="-180"
+            max="180"
+            step="0.1"
+            class="value-input"
+            oninput="
+                targetDelta = parseFloat(this.value);
+                isSweeping = true;
+                document.getElementById(
+                    'deltaSlider'
+                ).value = targetDelta;
+
                 bestChi2 = Infinity;
 
                 searchThickness = 100;
 
                 searchIndex = 1.0;
 
-                document.getElementById(
-                    'deltaValue'
-                ).textContent =
-                this.value + '°'
+                searchComplete = false;
             "
         >
-
-        <span
-            id="deltaValue"
-            class="estimation-number"
-        >
-        0°
-        </span>
 
         </div>
         `;
@@ -1267,12 +1341,15 @@ function computeModelPsiDelta(
     (phaseP - phaseS)
     * 180 / Math.PI;
 
-    delta =
-        (
-            (
-                delta + 180
-            ) % 360
-        ) - 180;
+    while(delta > 180){
+
+    delta -= 360;
+    }
+
+    while(delta < -180){
+
+        delta += 360;
+    }
         return{
             psi,
             delta
@@ -1465,6 +1542,19 @@ function computeEllipsometry(){
         psiDisplay.textContent =
             psi.toFixed(1) + "°";
 
+        let delta =
+            (phaseP - phaseS)
+            * 180 / Math.PI;
+
+        while(delta > 180){
+
+            delta -= 360;
+        }
+
+        while(delta < -180){
+
+            delta += 360;
+        }
         deltaDisplay.textContent =
             delta.toFixed(1) + "°";
     }
@@ -1672,7 +1762,7 @@ if(
     isSweeping
 ){
 
-    for(let i = 0; i < 3000; i++){
+    for(let i = 0; i < 2000; i++){
 
         const result =
         computeModelPsiDelta(
@@ -1685,33 +1775,26 @@ if(
             searchIndex,
             bestChi2
         );
-        const targetPsi =
-            parseFloat(
-                document.getElementById(
-                    "psiSlider"
-                ).value
-            );
+        const psiTarget = parseFloat(targetPsi);
 
-        const targetDelta =
-            parseFloat(
-                document.getElementById(
-                    "deltaSlider"
-                ).value
-            );
+        const deltaTarget = parseFloat(targetDelta);
 
         let deltaError =
-            result.delta - targetDelta;
+            result.delta - deltaTarget;
 
-        deltaError =
-            (
-                (
-                    deltaError + 180
-                ) % 360
-            ) - 180;
+        while(deltaError > 180){
+
+            deltaError -= 360;
+        }
+
+        while(deltaError < -180){
+
+            deltaError += 360;
+        }
 
         const chi2 =
             (
-                result.psi - targetPsi
+                result.psi - psiTarget
             )**2
             +
             deltaError**2;
@@ -1726,7 +1809,7 @@ if(
                 searchIndex;
         }
 
-        searchThickness += 5;
+        searchThickness += 1;
 
         if(searchThickness > 1000){
 
@@ -1736,26 +1819,80 @@ if(
         }
 
         if(searchIndex > 3.0){
-
+            searchComplete = true;
             searchIndex = 1.0;
         }
     }
 
-    document.getElementById(
-        "fitThicknessDisplay"
-    ).textContent =
-        bestThickness.toFixed(0)
-        + " nm";
+    fitDirty = false;
+        if(searchFrames > 0){
 
-    document.getElementById(
-        "fitIndexDisplay"
-    ).textContent =
-        bestFilmIndex.toFixed(2);
-
+        searchFrames--;
+    }   
+    const chiDisplay =
     document.getElementById(
         "chiDisplay"
-    ).textContent =
-        bestChi2.toFixed(2);
+    );
+
+    if(!searchComplete){
+
+        document.getElementById(
+            "fitThicknessDisplay"
+        ).textContent =
+            searchThickness.toFixed(0)
+            + " nm";
+
+        document.getElementById(
+            "fitIndexDisplay"
+        ).textContent =
+            searchIndex.toFixed(2);
+
+        chiDisplay.textContent =
+            "Searching...";
+        chiDisplay.style.textShadow =
+        "0 0 12px var(--theme-glow)";
+        chiDisplay.style.color =
+            "var(--theme-light)";
+    }
+
+    else if(bestChi2 > 1){
+
+        document.getElementById(
+            "fitThicknessDisplay"
+        ).textContent = "--";
+
+        document.getElementById(
+            "fitIndexDisplay"
+        ).textContent = "--";
+
+        chiDisplay.textContent =
+            "No Match";
+        chiDisplay.style.textShadow =
+            "0 0 12px #ff4444";
+        chiDisplay.style.color =
+            "#ff4d4d";
+    }
+
+    else{
+
+        document.getElementById(
+            "fitThicknessDisplay"
+        ).textContent =
+            bestThickness.toFixed(0)
+            + " nm";
+
+        document.getElementById(
+            "fitIndexDisplay"
+        ).textContent =
+            bestFilmIndex.toFixed(2);
+
+        chiDisplay.textContent =
+            "Match";
+        chiDisplay.style.textShadow =
+            "0 0 12px #00ff99";
+        chiDisplay.style.color =
+            "#4dff88";
+    }
 }
 
     const baseColor =
