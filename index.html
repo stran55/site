@@ -527,9 +527,12 @@
 			</section>
 			<script>window.addEventListener(
 				"pageshow",
-				()=>{
+				function(event){
 
-					document.body.style.opacity = 1;
+					if(event.persisted){
+
+						window.location.reload();
+					}
 				}
 			);</script>
 			<script src="assets/js/jquery.min.js"></script>
