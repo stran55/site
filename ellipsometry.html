@@ -106,7 +106,7 @@ canvas{
     align-items:flex-start;
     gap:20px;
     margin-top:20px;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
 }
 
 /*System parameters*/
@@ -1993,11 +1993,11 @@ drawWaveLine(
     ctx.fillStyle = "white";
     ctx.font = "26px Orbitron";
 
-    ctx.fillText("Air",60,120);
+    ctx.fillText("Air",55,85);
 
-    ctx.fillText("Thin Film (n₁)",60,cy+10);
+    ctx.fillText("Thin Film (n₁)",55,cy+10);
 
-    ctx.fillText("Substrate (n₂)",60,cy+160);
+    ctx.fillText("Substrate (n₂)",55,cy+135);
 
     computeEllipsometry();
 
