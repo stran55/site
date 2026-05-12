@@ -99,6 +99,49 @@ canvas{
     flex-shrink:0;
     font-variant-numeric:tabular-nums;
 }
+.title-row{
+    position:relative;
+}
+
+
+.back-button{
+    position:fixed;
+    top:-30px;
+    right:20px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:10px 16px;
+
+    text-decoration:none;
+    color:white;
+
+    border:0px solid var(--theme);
+    border-radius:10px;
+
+    background:rgba(0, 0, 0, 0);
+
+    font-size:24px;
+    font-family:'Orbitron',sans-serif;
+
+    box-shadow:0 0 0px var(--theme-glow);
+
+    z-index:1000;
+
+    transition:
+        box-shadow 0.2s ease,
+}
+
+.back-button:hover .return{
+    text-shadow:0 0 12px #ff6600;
+}
+
+html{
+    font-size:16px;
+}
+
 
 .panel-row{
     display:flex;
@@ -258,6 +301,7 @@ input[type="range"]::-webkit-slider-thumb{
 }
 
 .title-row{
+    position:relative;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -684,26 +728,24 @@ button:active{
         </div>
     </div>
 </div>
-<a href="#"
-onclick="fadeAndRedirect('index.html'); return false;"
-style="
-text-decoration:none;
-color:white;
-">
+<a
+    href="#"
+    onclick="fadeAndRedirect('index.html#main'); return false;"
+    class="back-button"
+>
 
 <h2 class="return">
 
-<span
-style="
-margin-left:10px;
-margin-right:6px;
-"
->
-Return
-</span>
+    
 
-<i class="fa-solid fa-right-from-bracket"></i>
-
+    <span
+        style="
+        margin:8px;
+        "
+    >
+        Exit
+    </span>
+    <i class="fa-regular fa-rectangle-xmark"></i>
 </h2>
 
 </a>
@@ -2025,7 +2067,27 @@ function togglePolarization(){
     ).textContent =
         polarizationMode.toUpperCase() +  "-Polarized " + direction;
 }
+let mathJaxLoaded = false;
+
+function loadMathJax(){
+
+    if(mathJaxLoaded) return;
+
+    const script = document.createElement("script");
+
+    script.src =
+    "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+
+    script.async = true;
+
+    document.head.appendChild(script);
+
+    mathJaxLoaded = true;
+}
+
 function toggleInfo(){
+
+    loadMathJax();
 
     document
         .getElementById("overlay")
