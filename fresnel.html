@@ -533,6 +533,18 @@ input[type="range"]::-webkit-slider-thumb{
         </div>
         <div class="info-grid">
 
+            <div class="info-label">Incident Angle</div>
+            <div class="info-value" id="thetaIDisplay">0°</div>
+
+            <div class="info-label">Transmitted Angle</div>
+            <div class="info-value" id="thetaTDisplay">0°</div>
+
+            <div class="info-label">Brewster Angle</div>
+            <div class="info-value" id="brewsterDisplay">0°</div>
+
+            <div class="info-label">Critical Angle</div>
+            <div class="info-value" id="criticalDisplay">N/A</div>
+
             <div class="info-label">Reflectance (S)</div>
             <div class="info-value" id="RsDisplay">0.000</div>
 
@@ -545,17 +557,6 @@ input[type="range"]::-webkit-slider-thumb{
             <div class="info-label">Transmittance (P)</div>
             <div class="info-value" id="TpDisplay">0.000</div>
 
-            <div class="info-label">Incident Angle</div>
-            <div class="info-value" id="thetaIDisplay">0°</div>
-
-            <div class="info-label">Transmitted Angle</div>
-            <div class="info-value" id="thetaTDisplay">0°</div>
-
-            <div class="info-label">Brewster Angle</div>
-            <div class="info-value" id="brewsterDisplay">0°</div>
-
-            <div class="info-label">Critical Angle</div>
-            <div class="info-value" id="criticalDisplay">N/A</div>
 
         </div>
     <div
@@ -569,35 +570,28 @@ input[type="range"]::-webkit-slider-thumb{
 <h2>Variable and Data Information</h2>
 
 <p>
+    <span class="big-symbol">Incident Angle (θ<sub>i</sub>)</span> : Angle between incoming ray and normal to the surface.
+<p></p>
+<span class="big-symbol">Transmitted Angle (θ<sub>t</sub>)</span> : Angle between the transmitted ray and the normal to the interface. 
+<p></p>
 
-<span class="big-symbol">Ψ</span>
-: Angular representation of the relative amplitude ratio between polarizations.
-$$\psi = \arctan\left|\frac{r_p}{r_s}\right|$$
+<span class="big-symbol">Brewster Angle (θ<sub>B</sub>)</span> : Incident angle at which no p-polarized light is reflected (\(\theta_i + \theta_t = 90°\)).
+$$\tan\theta_B = \frac{n_2}{n_1}$$
 
-<span class="big-symbol">Δ</span>
-: Phase difference between reflected p- and s-polarized light.
-$$\Delta = \arg\left(\frac{|r_p|e^{i\phi_p}}{|r_s|e^{i\phi_s}}\right) = \phi_p - \phi_s$$
+<span class="big-symbol">Critical Angle (θ<sub>c</sub>)</span> : Incident angle beyond which total internal reflection occurs (\(\theta_t = 90°\))
+$$\sin\theta_c = \frac{n_2}{n_1}$$
 
-<span class="big-symbol">φ</span>
-: Phase shift accumulated propagating through thin film at the transmitted angle.
-$$\phi = \frac{4\pi nt\cos(\theta_t)}{\lambda}$$
+<span class="big-symbol"> S-Reflectance (R<sub>s</sub></span>) : Fraction of incident s-polarized optical power that is reflected.
+$$ R_s = |r_s|^2 = \left|\frac{n_1\cos\theta_i - n_2\cos\theta_t}{n_1\cos\theta_i + n_2\cos\theta_t}\right|^2 $$
 
-<span class="big-symbol">r<sub>s</sub></span>
-: Complex reflection coefficient for s-polarization.
-$$r_s = \frac{r_{s01} + r_{s12}~e^{i\phi}}{1+r_{s01}\cdot r_{s12}~e^{i\phi}}$$
+<span class="big-symbol">P-Reflectance (R<sub>p</sub>)</span> : Fraction of incident p-polarized optical power that is reflected.
+$$ R_p = |r_p|^2 = \left|\frac{n_2\cos\theta_i - n_1\cos\theta_t}{n_2\cos\theta_i + n_1\cos\theta_t}\right|^2 $$
 
-<span class="big-symbol">r<sub>p</sub></span>
-: Complex reflection coefficient for p-polarization.
-$$r_p = \frac{r_{p01} + r_{p12}~e^{i\phi}}{1+r_{p01}\cdot r_{p12}~e^{i\phi}}$$
+<span class="big-symbol">S-Transmittance (T<sub>s</sub>)</span> : Fraction of incident s-polarized optical power that is transmitted.
+$$ T_s = |t_s|^2 = \left|\frac{2n_1\cos\theta_i}{n_1\cos\theta_i + n_2\cos\theta_t}\right|^2 $$
 
-<span class="big-symbol">R<sub>s</sub></span>
-: Reflectance power for s-polarization.
-$$R_s = |r_s|^2$$
-
-<span class="big-symbol">R<sub>p</sub></span>
-: Reflectance power for p-polarization.
-$$R_p = |r_p|^2$$
-
+<span class="big-symbol">P-Transmittance (T<sub>p</sub>)</span> : Fraction of incident p-polarized optical power that is transmitted.
+$$ T_p = |t_p|^2 = \left|\frac{2n_1\cos\theta_i}{n_2\cos\theta_i + n_1\cos\theta_t}\right|^2 $$
 </p>
 </div>
 </div>
@@ -646,7 +640,7 @@ function toggleInfo(){
 function toggleDataInfo(){
 
     loadMathJax();
-    
+
     document
         .getElementById("dataOverlay")
         .classList
