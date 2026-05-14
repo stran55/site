@@ -116,8 +116,8 @@
     }
     .back-button{
         position:fixed;
-        top:-30px;
-        right:20px;
+        top:-45px;
+        left:15px;
         display:flex;
         align-items:center;
         gap:10px;
@@ -132,7 +132,7 @@
         box-shadow:0 0 0px var(--theme-glow);
         z-index:1000;
         transition:
-            box-shadow 0.2s ease;
+            box-shadow 0.2s ease,
     }
     .back-button:hover .return{
         text-shadow:0 0 12px #ff6600;
@@ -811,6 +811,7 @@ drawScene();
     id="backButton"
 >
 <h2 class="return">
+    <i class="fa-regular fa-rectangle-xmark"></i>
     <span
         style="
         margin-right:8px;
@@ -818,7 +819,6 @@ drawScene();
     >
         Exit
     </span>
-    <i class="fa-regular fa-rectangle-xmark"></i>
 </h2>
 </a>
 <div id="blackOverlay"></div>
