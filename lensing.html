@@ -188,7 +188,29 @@ canvas {
     box-shadow:
         0 0 10px currentColor;
 }
-
+.back-button{
+    position:fixed;
+    top:-45px;
+    left:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 16px;
+    text-decoration:none;
+    color:white;
+    border:0px solid var(--theme);
+    border-radius:10px;
+    background:rgba(0, 0, 0, 0);
+    font-size:24px;
+    font-family:'Orbitron',sans-serif;
+    box-shadow:0 0 0px var(--theme-glow);
+    z-index:1000;
+    transition:
+        box-shadow 0.2s ease,
+}
+.back-button:hover .return{
+    text-shadow:0 0 12px #ff6600;
+}
 .left-cap {
     left: 0;
 }
@@ -1349,21 +1371,22 @@ animateSourceIntro();
 </script>
 
 
-<a href="#"
-   onclick="fadeAndRedirect('index.html#main'); return false;"
-   style="
-      text-decoration: none;
-      color: white;
-   ">
-    <h2 class="return">
-        <span style="
-            margin-left: 10px;
-            margin-right: 6px;
-        ">
-            Return
-        </span>
-        <i class="fa-solid fa-right-from-bracket"></i>
-    </h2>
+<a
+    href="#"
+    onclick="fadeAndRedirect('index.html#main'); return false;"
+    class="back-button"
+    id="backButton"
+>
+<h2 class="return">
+<i class="fa-regular fa-rectangle-xmark"></i>
+    <span
+        style="
+        margin-right:8px;
+        "
+    >
+        Exit
+    </span>
+</h2>
 </a>
 <div id="blackOverlay"></div>
 
